@@ -14,6 +14,10 @@ public class Test1 {
         System.out.println("오늘 저녁 머 먹지?");
     }
 
+    static void m2() {
+        System.out.println("오늘 저녁 머 먹지?");
+    }
+
     static void m4() {
         System.out.println("오늘 저녁 머 먹지?");
     }
