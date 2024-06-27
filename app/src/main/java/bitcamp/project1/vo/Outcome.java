@@ -5,6 +5,8 @@ public class Outcome {
   static final int CARD = 1;
 
   static int seqNo;
+
+  String date;
   int amount;
   int accountType;
   String account;
