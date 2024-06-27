@@ -11,7 +11,7 @@ public class IncomeCommand {
 
     ArrayList IncomeList = new ArrayList();
 
-    public void executeIncome(String subTitle) {
+    public void executeIncomeCommand(String subTitle) {
         switch (subTitle) {
             case "등록":
                 createIncome();
