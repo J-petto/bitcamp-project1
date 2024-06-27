@@ -9,14 +9,18 @@ public class Test1 {
         int m2 = 999999999;
         System.out.println(m2);
         System.out.println("강사..");
+        System.out.println("오늘 저녁 머 먹지?");
     }
 
     static void m1() {
         System.out.println("오늘 저녁 머 먹지?");
     }
+
     static void m4() {
         System.out.println("okoknonon");
+        System.out.println("오늘 저녁 머 먹지?");
     }
+
     public static void main(String[] args) {
         System.out.println("Hello World2222");
         System.out.println("OkOk");
