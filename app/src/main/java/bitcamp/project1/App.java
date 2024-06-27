@@ -95,8 +95,7 @@ public class App {
         } else {
           switch (menuTitle) {
             case "수입입력":
-//              incomeCommand.excuteIncomeCommand(subMenuTitle);
-              System.out.println(subMenuTitle);
+              incomeCommand.executeIncomeCommand(subMenuTitle);
               break;
             case "지출입력":
               outcomeCommand.excuteOutcomeCommand(subMenuTitle);
