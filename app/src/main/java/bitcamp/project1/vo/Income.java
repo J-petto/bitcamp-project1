@@ -2,6 +2,8 @@ package bitcamp.project1.vo;
 
 import org.checkerframework.checker.index.qual.UpperBoundUnknown;
 
+import java.util.Objects;
+
 public class Income {
   private static int seqNo;
 
@@ -10,6 +12,19 @@ public class Income {
   private String date;
   private String account;
   private String category;
+
+  @Override
+  public boolean equals(Object object) {
+    if (this == object) return true;
+    if (object == null || getClass() != object.getClass()) return false;
+    Income income = (Income) object;
+    return no == income.no;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(no);
+  }
 
   public Income(){
 
