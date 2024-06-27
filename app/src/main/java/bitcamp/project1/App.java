@@ -5,10 +5,10 @@ import bitcamp.project1.command.IncomeCommand;
 import bitcamp.project1.command.OutcomeCommand;
 
 public class App {
-  static String[] mainMenus = new String[] {"수입입력", "지출입력", "통계", "종료"};
+  static String[] mainMenus = new String[] {"수입입력", "지출입력", "수입지출목록", "종료"};
   static String[][] subMenus = {{"등록", "목록", "조회", "변경", "삭제"},
                                 {"등록", "목록", "조회", "변경", "삭제"},
-                                  {}};
+                                {"총 지출 수입", "일자별 수입 지출", "항목별 수입 지출"}};
 
   IncomeCommand incomeCommand = new IncomeCommand();
   OutcomeCommand outcomeCommand = new OutcomeCommand();

@@ -6,11 +6,11 @@ import java.util.Objects;
 public class Outcome {
   static final int CASH = 0;
   static final int CARD = 1;
-
   private static int seqNo;
+
   private int no;
-  private LocalDate date;
   private int amount;
+  private LocalDate date;
   private int accountType;
   private String category;
 
