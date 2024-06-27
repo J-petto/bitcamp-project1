@@ -1,11 +1,14 @@
 package bitcamp.project1;
 
 import bitcamp.project1.Prompt.Prompt;
+import bitcamp.project1.command.IncomeCommand;
 
 public class Test {
   static String[] mainMenus = new String[] {"수입입력", "지출입력", "통계", "종료"};
   static String[][] subMenus = {{"등록", "목록", "조회", "변경", "삭제"}, {"등록", "목록", "조회", "변경", "삭제"},
       {}};
+
+  static IncomeCommand incomeCommand = new IncomeCommand();
 
   public static void main(String[] args) {
     String command;
@@ -69,6 +72,7 @@ public class Test {
   }
 
   static void processSubMenu(String menuTitle, String[] menus) {
+
     printSubMenu(menuTitle, menus);
     while (true) {
       String command = Prompt.input(String.format("메인/%s> ", menuTitle));
@@ -86,7 +90,7 @@ public class Test {
         } else {
           switch (menuTitle) {
             case "수입입력":
-              System.out.println(subMenuTitle);
+              incomeCommand.executeIncome(subMenuTitle);
               break;
             case "지출입력":
               System.out.println(subMenuTitle);
