@@ -99,6 +99,7 @@ public class App {
               break;
             case "지출입력":
               outcomeCommand.excuteOutcomeCommand(subMenuTitle);
+
               break;
             case "통계":
               System.out.println(subMenuTitle);

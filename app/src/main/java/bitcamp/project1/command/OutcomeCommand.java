@@ -32,9 +32,9 @@ public class OutcomeCommand {
   private void addUser() {
     Outcome outcome = new Outcome();
     outcome.setNo(Outcome.getSeqNo());
-    outcome.setDate(Prompt.input("지출일?"));
-    outcome.setAmount(Prompt.inputInt("지출금액"));
-    outcome.setAccountType(Prompt.inputInt("결제방법(현금:0,카드:1)"));
+    outcome.setDate(Prompt.inputDate("지출일(yyyy-MM-dd)?"));
+    outcome.setAmount(Prompt.inputInt("지출금액?"));
+    outcome.setAccountType(Prompt.inputInt("결제방법(현금:0,카드:1)?"));
     outcome.setCategory(Prompt.input("지출종류?"));
     outcomeList.add(outcome);
   }
@@ -67,7 +67,7 @@ public class OutcomeCommand {
       System.out.println("없는 지출입니다.");
       return;
     }
-    outcome.setDate(Prompt.input("결제일(%s):", outcome.getDate()));
+    outcome.setDate(Prompt.inputDate("지출일(%s):", outcome.getDate()));
     outcome.setAmount(Prompt.inputInt("결제금액(%s):", outcome.getAmount()));
     outcome.setAccountType(Prompt.inputInt("결제방법(%s):", outcome.getAccountType()));
     outcome.setCategory(Prompt.input("지출종류(%s):", outcome.getCategory()));

@@ -1,12 +1,15 @@
 package bitcamp.project1.vo;
 
+import java.time.LocalDate;
+import java.util.Objects;
+
 public class Outcome {
   static final int CASH = 0;
   static final int CARD = 1;
 
   private static int seqNo;
   private int no;
-  private String date;
+  private LocalDate date;
   private int amount;
   private int accountType;
   private String category;
@@ -14,6 +17,21 @@ public class Outcome {
   public Outcome() {}
   public Outcome(int no) {
     this.no = no;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o)
+      return true;
+    if (o == null || getClass() != o.getClass())
+      return false;
+    Outcome outcome = (Outcome) o;
+    return no == outcome.no;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(no);
   }
 
   public static int getSeqNo() {
@@ -32,11 +50,11 @@ public class Outcome {
     this.no = no;
   }
 
-  public String getDate() {
+  public LocalDate getDate() {
     return date;
   }
 
-  public void setDate(String date) {
+  public void setDate(LocalDate date) {
     this.date = date;
   }
 
