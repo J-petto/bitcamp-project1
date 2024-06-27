@@ -1,11 +1,12 @@
 package bitcamp.project1.vo;
 
 public class Outcome {
+  static final int CASH = 0;
+  static final int CARD = 1;
+
   static int seqNo;
   int amount;
-  int cash;
-  int checkCard;
-  int creditCard;
+  int accountType;
   String account;
   String category;
 }
