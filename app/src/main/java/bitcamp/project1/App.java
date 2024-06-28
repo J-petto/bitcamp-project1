@@ -57,8 +57,8 @@ public class App {
   }
 
   void execute() {
-    incomeCommand.autoIncomeData();
-    outcomeCommand.autoOutcomeData();
+//    incomeCommand.autoIncomeData();
+//    outcomeCommand.autoOutcomeData();
     String command;
     printMainMenu();
     while (true) {
