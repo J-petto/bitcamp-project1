@@ -9,6 +9,10 @@ import java.util.HashSet;
 
 //수정 (나중에삭제)//
 public class InformCommand {
+  private final int PROGRESS_INCOME = 0;
+  private final int PROGRESS_OUTCOME = 1;
+  private final int PROGRESS_TOTAL = 2;
+
   ArrayList incomeList = new ArrayList();
   ArrayList outcomeList = new ArrayList();
   ArrayList totalList = new ArrayList();
@@ -52,13 +56,13 @@ public class InformCommand {
     int total = incomeTotal - outcomeTotal;
 
     System.out.printf("총 수입 :  %d원 ", incomeTotal);
-    printGraph(0 ,incomeTotal, total);
+    printGraph(PROGRESS_INCOME, incomeTotal, total);
 
     System.out.printf("총 지출 : -%d원 ", outcomeTotal);
-    printGraph(1 ,outcomeTotal, total);
+    printGraph(PROGRESS_OUTCOME, outcomeTotal, total);
 
     System.out.printf("총   계 : %d원 ", total);
-    printGraph(2 ,Math.abs(total), total);
+    printGraph(PROGRESS_TOTAL, Math.abs(total), total);
   }
 
   public void printGraph(int label, int value, int total){
@@ -153,7 +157,7 @@ public class InformCommand {
 
     System.out.println("---[수입]-------------------");
     System.out.printf("총 수입: %d ", incomeTotal);
-    printGraph(0, Math.abs(incomeTotal),incomeTotal);
+    printGraph(PROGRESS_INCOME, Math.abs(incomeTotal),incomeTotal);
     for (Object obj : uniqueIncome) {
       String car = (String) obj;
       int total = 0;
@@ -164,13 +168,13 @@ public class InformCommand {
         }
       }
       System.out.printf("%s: %d ", obj.toString(), total);
-      printGraph(0, total, incomeTotal);
+      printGraph(PROGRESS_INCOME, total, incomeTotal);
     }
 
     Object[] uniqueOutcome = uniqueList(outcomeList);
     System.out.println("---[지출]-------------------");
     System.out.printf("총 지출: %d ", outcomeTotal);
-    printGraph(1, Math.abs(outcomeTotal),outcomeTotal);
+    printGraph(PROGRESS_OUTCOME, Math.abs(outcomeTotal),outcomeTotal);
     for (Object obj : uniqueOutcome) {
       String car = (String) obj;
       int total = 0;
@@ -181,7 +185,7 @@ public class InformCommand {
         }
       }
       System.out.printf("%s: %d ", obj.toString(), total);
-      printGraph(1, Math.abs(total),outcomeTotal);
+      printGraph(PROGRESS_OUTCOME, Math.abs(total),outcomeTotal);
     }
   }
 
