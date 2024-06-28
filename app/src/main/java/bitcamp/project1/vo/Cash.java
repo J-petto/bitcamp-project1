@@ -1,7 +1,6 @@
 package bitcamp.project1.vo;
 
 public class Cash {
-  private String 
   private int cuurentAmount;
 
   public int getCuurentAmount() {
