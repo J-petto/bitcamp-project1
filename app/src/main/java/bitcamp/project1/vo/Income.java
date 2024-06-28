@@ -1,7 +1,6 @@
 package bitcamp.project1.vo;
 
-import org.checkerframework.checker.index.qual.UpperBoundUnknown;
-
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Income {
@@ -9,7 +8,8 @@ public class Income {
 
   private int no;
   private int amount;
-  private String date;
+  private String kindOfCome;
+  private LocalDate date;
   private String account;
   private String category;
 
@@ -18,12 +18,12 @@ public class Income {
     if (this == object) return true;
     if (object == null || getClass() != object.getClass()) return false;
     Income income = (Income) object;
-    return no == income.no;
+    return no == income.no && Objects.equals(date, income.date);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hashCode(no);
+    return Objects.hash(no, date);
   }
 
   public Income(){
@@ -54,11 +54,11 @@ public class Income {
     this.amount = amount;
   }
 
-  public String getDate() {
+  public LocalDate getDate() {
     return date;
   }
 
-  public void setDate(String date) {
+  public void setDate(LocalDate date) {
     this.date = date;
   }
 
@@ -76,5 +76,13 @@ public class Income {
 
   public void setCategory(String category) {
     this.category = category;
+  }
+
+  public String getKindOfCome() {
+    return kindOfCome;
+  }
+
+  public void setKindOfCome(String kindOfCome) {
+    this.kindOfCome = kindOfCome;
   }
 }

@@ -2,6 +2,7 @@ package bitcamp.project1;
 
 import bitcamp.project1.Prompt.Prompt;
 import bitcamp.project1.command.IncomeCommand;
+import bitcamp.project1.command.InformCommand;
 import bitcamp.project1.command.OutcomeCommand;
 
 public class App {
@@ -12,6 +13,7 @@ public class App {
 
   IncomeCommand incomeCommand = new IncomeCommand();
   OutcomeCommand outcomeCommand = new OutcomeCommand();
+  InformCommand informCommand = new InformCommand(incomeCommand.getIncomeList(), outcomeCommand.getOutcomeList());
 
   public static void main(String[] args) {
     App app = new App();
@@ -99,10 +101,9 @@ public class App {
               break;
             case "지출입력":
               outcomeCommand.excuteOutcomeCommand(subMenuTitle);
-
               break;
-            case "통계":
-              System.out.println(subMenuTitle);
+            case "수입지출목록":
+              informCommand.executeInformCommand(subMenuTitle);
               break;
           }
         }

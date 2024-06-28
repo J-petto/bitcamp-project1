@@ -37,7 +37,7 @@ public class IncomeCommand {
 
     private void createIncome() {
         Income income = new Income();
-        income.setDate(Prompt.input("날짜 입력>"));
+        income.setDate(Prompt.inputDate("입금일(yyyy-MM-dd)?"));
         income.setCategory(Prompt.input("항목 입력>"));
         income.setAccount(Prompt.input("계좌/현금 입력>"));
         income.setAmount(Prompt.inputInt("입금 금액 입력>"));
@@ -72,7 +72,7 @@ public class IncomeCommand {
             System.out.println("없는 입금 번호입니다.");
             return;
         }
-        deletedIncome.setDate(Prompt.input("변경할 입금 날짜>"));
+        deletedIncome.setDate(Prompt.inputDate("입금일(yyyy-MM-dd)?"));
         deletedIncome.setCategory(Prompt.input("변경할 항목>"));
         deletedIncome.setAccount(Prompt.input("변경할 입금 계좌>"));
         deletedIncome.setAmount(Prompt.inputInt("변경할 입금 금액>"));
@@ -99,5 +99,9 @@ public class IncomeCommand {
             }
             System.out.printf("입금 %s %s %s\n", income.getDate(), income.getCategory(), income.getAmount());
         }
+    }
+
+    public ArrayList getIncomeList() {
+        return incomeList;
     }
 }
