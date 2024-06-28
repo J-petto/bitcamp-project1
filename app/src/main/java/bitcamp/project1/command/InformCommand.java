@@ -35,19 +35,6 @@ public class InformCommand {
     }
   }
 
-  public Object[] concat() {
-    int incomeSize = incomeList.size();
-    int outcomeSize = outcomeList.size();
-    Object[] result = new Object[incomeSize + outcomeSize];
-    for (int i = 0; i < incomeSize; i++) {
-      result[i] = incomeList.get(i);
-    }
-    for (int i = 0; i < outcomeSize; i++) {
-      result[incomeSize + i] = outcomeList.get(i);
-    }
-    return result;
-  }
-
   // 1.총 지출 수입 목록
   private void viewTotal() {
     int incomeTotal = allSum(true);

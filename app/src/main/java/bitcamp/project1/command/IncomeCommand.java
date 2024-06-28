@@ -148,7 +148,7 @@ public class IncomeCommand {
   private void setWallet(Finance outcome) {
     for (int i = 0; i < wallet.length; i++) {
       if(i == 2){
-        
+
       }
       BankAccount value = (BankAccount) wallet[i];
       System.out.printf("%s", value.getBankName());
