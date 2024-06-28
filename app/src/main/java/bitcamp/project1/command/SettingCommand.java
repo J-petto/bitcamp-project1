@@ -10,7 +10,11 @@ public class SettingCommand {
   private final int CASH = 0;
   private final int BANK = 1;
   private final int CREDIT = 2;
-  Object[] settings = {new ArrayList(), new ArrayList(), new ArrayList()};
+
+  ArrayList bankList = new ArrayList();
+  ArrayList creditCardList = new ArrayList();
+  ArrayList cashList = new ArrayList();
+  Object[] settings = {bankList, creditCardList, cashList};
 
   public void executeSettingCommand(String subTitle) {
 
@@ -72,6 +76,21 @@ public class SettingCommand {
   }
 
   public void updateSetting() {
+    ArrayList cashArr = (ArrayList) settings[CASH];
+    for(Object obj: cashArr.toArray()){
+
+      System.out.printf("%d. %s", obj);
+    }
+    while (true){
+      String reply = Prompt.input("현금 목록을 수정하시겠습니까?(Y/N)");
+      if(reply.equalsIgnoreCase("n")){
+        break;
+      } else if (reply.equalsIgnoreCase("y")) {
+
+      }
+
+    }
+
   }
 
   public void deleteSetting() {
