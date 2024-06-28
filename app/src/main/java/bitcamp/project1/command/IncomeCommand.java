@@ -2,6 +2,7 @@ package bitcamp.project1.command;
 
 import bitcamp.project1.Prompt.Prompt;
 import bitcamp.project1.util.ArrayList;
+import bitcamp.project1.vo.BankAccount;
 import bitcamp.project1.vo.Finance;
 
 public class IncomeCommand {
@@ -14,6 +15,8 @@ public class IncomeCommand {
   private final int CASH = 1;
 
   ArrayList incomeList = new ArrayList();
+  SettingCommand settingCommand = new SettingCommand();
+  Object[] wallet = settingCommand.getUserSettingList();
 
   //  public void autoIncomeData() {
   //    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -139,6 +142,26 @@ public class IncomeCommand {
         default:
       }
 
+    }
+  }
+
+  private void setWallet(Finance outcome) {
+    for (int i = 0; i < wallet.length; i++) {
+      if(i == 2){
+        
+      }
+      BankAccount value = (BankAccount) wallet[i];
+      System.out.printf("%s", value.getBankName());
+    }
+
+    while (true) {
+      int no = Prompt.inputInt("결제방법?");
+      if (no < 0 || no >= wallet.length) {
+        System.out.println("유효한 결제방법이 아닙니다.");
+      } else {
+        outcome.setAccount(no - 1);
+        break;
+      }
     }
   }
 

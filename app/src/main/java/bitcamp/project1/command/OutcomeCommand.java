@@ -149,18 +149,25 @@ public class OutcomeCommand {
   }
 
   private void setWallet(Finance outcome) {
-    for (int i = 0; i < wallet.length; i++) {
-      BankAccount value = (BankAccount) wallet[i];
-      System.out.printf("%s", value.getBankName());
-    }
+      for (int i = 0; i < wallet.length; i++) {
+        BankAccount value = (BankAccount) wallet[i];
+        if(value == null){
+          continue;
+        }
+        System.out.printf("%s", value.getBankName());
+      }
 
     while (true) {
-      int no = Prompt.inputInt("결제방법?");
-      if (no < 0 || no >= wallet.length) {
-        System.out.println("유효한 결제방법이 아닙니다.");
-      } else {
-        outcome.setAccount(no - 1);
-        break;
+      try {
+        int no = Prompt.inputInt("결제방법?");
+        if (no < 0 || no >= wallet.length) {
+          System.out.println("유효한 결제방법이 아닙니다.");
+        } else {
+          outcome.setAccount(no - 1);
+          break;
+        }
+      }catch (NullPointerException e){
+        System.out.println("보유하지 않은 결제방법입니다.");
       }
     }
   }
