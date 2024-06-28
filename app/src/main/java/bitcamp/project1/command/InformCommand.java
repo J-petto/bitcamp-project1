@@ -83,16 +83,19 @@ public class InformCommand {
       int totalIncome = 0, totalOutcome = 0;
       for (int i = 0; i < incomeList.size(); i++) {
         Income income = (Income) incomeList.get(i);
-        totalIncome += income.getAmount();
+        if (date.equals(income.getDate())) {
+          totalIncome += income.getAmount();
+        }
       }
       for (int i = 0; i < outcomeList.size(); i++) {
         Income outcome = (Income) outcomeList.get(i);
-        totalOutcome += outcome.getAmount();
+        if (date.equals(outcome.getDate())) {
+          totalOutcome += outcome.getAmount();
+        }
       }
-      System.out.printf("%s, %d, %d\n", date.toString(), totalIncome, totalOutcome);
+      System.out.printf("%s, %d, %d ,%d\n", date.toString(), totalIncome, totalOutcome,
+          totalIncome - totalOutcome);
     }
-    ;
-
   }
 
   private void totalArray() {
@@ -125,6 +128,11 @@ public class InformCommand {
 
   private Object[] uniqueList() {
     HashSet<LocalDate> set = new HashSet<>();
+    for (int i = 0; i < incomeList.size(); i++) {
+      Income outcome = (Income) incomeList.get(i);
+      set.add(outcome.getDate());
+    }
+
     for (int i = 0; i < outcomeList.size(); i++) {
       Income outcome = (Income) outcomeList.get(i);
       set.add(outcome.getDate());
