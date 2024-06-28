@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashSet;
 
+//수정 (나중에삭제)//
 public class InformCommand {
   ArrayList incomeList = new ArrayList();
   ArrayList outcomeList = new ArrayList();
