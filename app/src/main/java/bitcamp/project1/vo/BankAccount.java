@@ -11,4 +11,12 @@ public class BankAccount {
   public void setBankName(String bankName) {
     this.bankName = bankName;
   }
+
+  public int getDepositAmount() {
+    return depositAmount;
+  }
+
+  public void setDepositAmount(int depositAmount) {
+    this.depositAmount = depositAmount;
+  }
 }

@@ -1,13 +1,19 @@
 package bitcamp.project1.command;
 
+import bitcamp.project1.Prompt.Prompt;
+import bitcamp.project1.util.ArrayList;
 import bitcamp.project1.vo.BankAccount;
 import bitcamp.project1.vo.Cash;
 import bitcamp.project1.vo.CreditCard;
 
 public class SettingCommand {
+  private final int CASH = 0;
+  private final int BANK = 1;
+  private final int CREDIT = 2;
+  Object[] settings = {new ArrayList(), new ArrayList(), new ArrayList()};
+
   public void executeSettingCommand(String subTitle) {
 
-    Object[] settings = {new Cash(), new BankAccount(), new CreditCard()};
     switch (subTitle) {
       case "등록":
         createSetting();
@@ -29,7 +35,33 @@ public class SettingCommand {
   }
 
   public void createSetting() {
+    Cash cash = new Cash();
+    CreditCard creditCard = new CreditCard();
+    cash.setCuurentAmount(Prompt.inputInt("잔액?"));
+    ((ArrayList) settings[CASH]).add(cash);
+
+    while (true) {
+      String reply = Prompt.input("계좌를 추가 하시겠습니까(Y/N)?");
+      if (!reply.equalsIgnoreCase("y")) {
+        break;
+      }
+      BankAccount bankAccount = new BankAccount();
+      bankAccount.setBankName(Prompt.input("은행명?"));
+      bankAccount.setDepositAmount(Prompt.inputInt("잔액?"));
+      ((ArrayList) settings[BANK]).add(bankAccount);
+    }
+
+    while (true) {
+      String reply = Prompt.input("신용카드를 추가 하시겠습니까(Y/N)?");
+      if (!reply.equalsIgnoreCase("y")) {
+        break;
+      }
+      BankAccount bankAccount = new BankAccount();
+      bankAccount.setBankName(Prompt.input("카드사명?"));
+      ((ArrayList) settings[CREDIT]).add(bankAccount);
+    }
   }
+
 
   public void listISetting() {
   }
