@@ -75,7 +75,7 @@ public class IncomeCommand {
     income.setKindOfCome("수입");
     income.setDate(Prompt.inputDate("수입 날짜(yyyy-MM-dd)?"));
     income.setAmount(Prompt.inputInt("수입 금액?"));
-    income.setAccount(Prompt.inputInt("수입출처?"));
+    setWallet(income);
     income.setCategory(Prompt.input("카테고리?"));
     income.setNo(Finance.getSeqNo());
     incomeList.add(income);
@@ -145,22 +145,29 @@ public class IncomeCommand {
     }
   }
 
-  private void setWallet(Finance outcome) {
+  private void setWallet(Finance income) {
     for (int i = 0; i < wallet.length; i++) {
-      if(i == 2){
-
-      }
       BankAccount value = (BankAccount) wallet[i];
+      if(value == null){
+        continue;
+      }
+      if(i == 2){
+        continue;
+      }
       System.out.printf("%s", value.getBankName());
     }
 
     while (true) {
-      int no = Prompt.inputInt("결제방법?");
-      if (no < 0 || no >= wallet.length) {
-        System.out.println("유효한 결제방법이 아닙니다.");
-      } else {
-        outcome.setAccount(no - 1);
-        break;
+      try {
+        int no = Prompt.inputInt("결제방법?");
+        if (no < 0 || no >= wallet.length || no == 2) {
+          System.out.println("유효한 결제방법이 아닙니다.");
+        } else {
+          income.setAccount(no - 1);
+          break;
+        }
+      }catch (NullPointerException e){
+        System.out.println("보유하지 않은 결제방법입니다.");
       }
     }
   }
