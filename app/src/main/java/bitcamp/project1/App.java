@@ -11,11 +11,11 @@ public class App {
   static String[][] subMenus = {{"등록", "목록", "조회", "변경", "삭제"}, {"등록", "목록", "조회", "변경", "삭제"},
       {"총 지출 수입", "일자별 수입 지출", "항목별 수입 지출"}, {"등록", "목록", "조회", "변경", "삭제"}};
 
+  SettingCommand settingCommand = new SettingCommand();
   IncomeCommand incomeCommand = new IncomeCommand();
-  OutcomeCommand outcomeCommand = new OutcomeCommand();
+  OutcomeCommand outcomeCommand = new OutcomeCommand(settingCommand.getUserSettingList());
   InformCommand informCommand =
       new InformCommand(incomeCommand.getIncomeList(), outcomeCommand.getOutcomeList());
-  SettingCommand settingCommand = new SettingCommand();
 
   public static void main(String[] args) {
     App app = new App();
@@ -57,8 +57,8 @@ public class App {
   }
 
   void execute() {
-    incomeCommand.autoIncomeData();
-    outcomeCommand.autoOutcomeData();
+    //    incomeCommand.autoIncomeData();
+    //    outcomeCommand.autoOutcomeData();
     String command;
     printMainMenu();
     while (true) {
@@ -75,7 +75,11 @@ public class App {
         } else if (menuTitle.equals("종료")) {
           break;
         } else {
-          processSubMenu(menuTitle, subMenus[menuNo - 1]);
+          if (!settingCommand.getSettingDone() || menuTitle.equals("설정")) {
+            processSubMenu(menuTitle, subMenus[menuNo - 1]);
+          } else {
+            System.out.println("[메뉴>설정>등록]에서 계정을 먼저 생성 해주세요. ");
+          }
         }
       } catch (NumberFormatException ex) {
         System.out.println("숫자로 메뉴 번호를 입력하세요.");

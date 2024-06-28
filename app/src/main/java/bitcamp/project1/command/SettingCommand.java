@@ -65,6 +65,9 @@ public class SettingCommand {
   public void listISetting() {
     System.out.println("구분 상세내용 금액");
     for (Object obj : userSettingList) {
+      if (obj == null) {
+        continue;
+      }
       BankAccount count = (BankAccount) obj;
       System.out.printf("%s %d\n", count.getBankName(), count.getDepositAmount());
     }
@@ -140,5 +143,9 @@ public class SettingCommand {
 
   public Object[] getUserSettingList() {
     return userSettingList;
+  }
+
+  public boolean getSettingDone() {
+    return settingDone;
   }
 }

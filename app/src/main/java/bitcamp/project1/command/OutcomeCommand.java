@@ -16,8 +16,11 @@ public class OutcomeCommand {
 
   ArrayList outcomeList = new ArrayList();
   SettingCommand settingCommand = new SettingCommand();
-  Object[] wallet = settingCommand.getUserSettingList();
+  Object[] wallet;
 
+  public OutcomeCommand(Object[] list) {
+    this.wallet = list;
+  }
   //  public void autoOutcomeData() {
   //    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
   //    Finance outcome = new Finance();
@@ -96,7 +99,8 @@ public class OutcomeCommand {
     }
     System.out.printf("지출날짜 : %s\n", searchedOutcome.getDate());
     System.out.printf("지출금액 : %s\n", searchedOutcome.getAmount());
-    System.out.printf("결제방법 : %s\n", searchedOutcome.getAccount());
+    BankAccount account = (BankAccount) wallet[searchedOutcome.getAccount()];
+    System.out.printf("결제방법 : %s\n", account.getBankName());
     System.out.printf("카테고리 : %s\n", searchedOutcome.getCategory());
   }
 
@@ -149,25 +153,22 @@ public class OutcomeCommand {
   }
 
   private void setWallet(Finance outcome) {
-      for (int i = 0; i < wallet.length; i++) {
-        BankAccount value = (BankAccount) wallet[i];
-        if(value == null){
-          continue;
-        }
-        System.out.printf("%s", value.getBankName());
+    for (int i = 0; i < wallet.length; i++) {
+      BankAccount value = (BankAccount) wallet[i];
+      if (value == null) {
+        continue;
       }
+      System.out.printf("%d. %s\n", i + 1, value.getBankName());
+    }
 
     while (true) {
-      try {
-        int no = Prompt.inputInt("결제방법?");
-        if (no < 0 || no >= wallet.length) {
-          System.out.println("유효한 결제방법이 아닙니다.");
-        } else {
-          outcome.setAccount(no - 1);
-          break;
-        }
-      }catch (NullPointerException e){
-        System.out.println("보유하지 않은 결제방법입니다.");
+      int no = Prompt.inputInt("결제방법?");
+      if ((no < 0 || no >= wallet.length) || wallet[no - 1] == null) {
+        System.out.println("유효한 결제방법이 아닙니다.");
+      } else {
+
+        outcome.setAccount(no - 1);
+        break;
       }
     }
   }
