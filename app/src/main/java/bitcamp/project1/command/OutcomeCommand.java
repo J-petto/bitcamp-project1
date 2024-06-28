@@ -84,4 +84,8 @@ public class OutcomeCommand {
       System.out.println("없는 지출입니다.");
     }
   }
+
+  public ArrayList getOutcomeList() {
+    return outcomeList;
+  }
 }
