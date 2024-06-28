@@ -13,7 +13,7 @@ public class Finance {
   private int no;
   private LocalDate date;
   private int amount;
-  private String account;
+  private int account;
   private String category;
 
   public Finance() {
@@ -66,11 +66,11 @@ public class Finance {
     this.date = date;
   }
 
-  public String getAccount() {
+  public int getAccount() {
     return account;
   }
 
-  public void setAccount(String account) {
+  public void setAccount(int account) {
     this.account = account;
   }
 

@@ -2,9 +2,8 @@ package bitcamp.project1.command;
 
 import bitcamp.project1.Prompt.Prompt;
 import bitcamp.project1.util.ArrayList;
+import bitcamp.project1.vo.BankAccount;
 import bitcamp.project1.vo.Finance;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class OutcomeCommand {
   private final int PROCESS_LIST = 0;
@@ -17,37 +16,37 @@ public class OutcomeCommand {
 
   ArrayList outcomeList = new ArrayList();
   SettingCommand settingCommand = new SettingCommand();
-  Object[] = settingCommand.get();
+  Object[] wallet = settingCommand.getUserSettingList();
 
-  public void autoOutcomeData() {
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    Finance outcome = new Finance();
-    outcome.setKindOfCome("출금");
-    outcome.setDate(LocalDate.parse("2024-06-27"));
-    outcome.setCategory("식비");
-    outcome.setAccount("현금");
-    outcome.setAmount(300);
-    outcome.setNo(Finance.getSeqNo());
-    outcomeList.add(outcome);
-
-    Finance outcome1 = new Finance();
-    outcome1.setKindOfCome("출금");
-    outcome1.setDate(LocalDate.parse("2024-06-28"));
-    outcome1.setCategory("서적");
-    outcome1.setAccount("현금");
-    outcome1.setAmount(700);
-    outcome1.setNo(Finance.getSeqNo());
-    outcomeList.add(outcome1);
-
-    Finance outcome2 = new Finance();
-    outcome2.setKindOfCome("출금");
-    outcome2.setDate(LocalDate.parse("2024-06-28"));
-    outcome2.setCategory("아이패드");
-    outcome2.setAccount("카드");
-    outcome2.setAmount(5000);
-    outcome2.setNo(Finance.getSeqNo());
-    outcomeList.add(outcome2);
-  }
+  //  public void autoOutcomeData() {
+  //    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+  //    Finance outcome = new Finance();
+  //    outcome.setKindOfCome("출금");
+  //    outcome.setDate(LocalDate.parse("2024-06-27"));
+  //    outcome.setCategory("식비");
+  //    outcome.setAccount("현금");
+  //    outcome.setAmount(300);
+  //    outcome.setNo(Finance.getSeqNo());
+  //    outcomeList.add(outcome);
+  //
+  //    Finance outcome1 = new Finance();
+  //    outcome1.setKindOfCome("출금");
+  //    outcome1.setDate(LocalDate.parse("2024-06-28"));
+  //    outcome1.setCategory("서적");
+  //    outcome1.setAccount("현금");
+  //    outcome1.setAmount(700);
+  //    outcome1.setNo(Finance.getSeqNo());
+  //    outcomeList.add(outcome1);
+  //
+  //    Finance outcome2 = new Finance();
+  //    outcome2.setKindOfCome("출금");
+  //    outcome2.setDate(LocalDate.parse("2024-06-28"));
+  //    outcome2.setCategory("아이패드");
+  //    outcome2.setAccount("카드");
+  //    outcome2.setAmount(5000);
+  //    outcome2.setNo(Finance.getSeqNo());
+  //    outcomeList.add(outcome2);
+  //  }
 
   public void excuteOutcomeCommand(String command) {
     System.out.printf("[%s]\n", command);
@@ -75,7 +74,7 @@ public class OutcomeCommand {
     outcome.setKindOfCome("지출");
     outcome.setDate(Prompt.inputDate("지출일(yyyy-MM-dd)?"));
     outcome.setAmount(Prompt.inputInt("지출금액?"));
-    outcome.setAccount(Prompt.input("결제방법?"));
+    setWallet(outcome);
     outcome.setCategory(Prompt.input("카테고리?"));
     outcome.setNo(Finance.getSeqNo());
     outcomeList.add(outcome);
@@ -112,7 +111,8 @@ public class OutcomeCommand {
     }
     updateOutcome.setDate(Prompt.inputDate("지출일(%s):", updateOutcome.getDate()));
     updateOutcome.setAmount(Prompt.inputInt("지출금액(%s):", updateOutcome.getAmount()));
-    updateOutcome.setAccount(Prompt.input("결제방법(%s):", updateOutcome.getAccount()));
+    BankAccount account = (BankAccount) wallet[updateOutcome.getAccount()];
+    updateOutcome.setAccount(Prompt.inputInt("결제방법(%s):", account.getBankName()));
     updateOutcome.setCategory(Prompt.input("카테고리(%s):", updateOutcome.getCategory()));
     System.out.println("변경 완료했습니다.");
   }
@@ -145,6 +145,23 @@ public class OutcomeCommand {
         default:
       }
 
+    }
+  }
+
+  private void setWallet(Finance outcome) {
+    for (int i = 0; i < wallet.length; i++) {
+      BankAccount value = (BankAccount) wallet[i];
+      System.out.printf("%s", value.getBankName());
+    }
+
+    while (true) {
+      int no = Prompt.inputInt("결제방법?");
+      if (no < 0 || no >= wallet.length) {
+        System.out.println("유효한 결제방법이 아닙니다.");
+      } else {
+        outcome.setAccount(no - 1);
+        break;
+      }
     }
   }
 

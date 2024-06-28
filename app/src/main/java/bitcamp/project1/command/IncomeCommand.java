@@ -4,9 +4,6 @@ import bitcamp.project1.Prompt.Prompt;
 import bitcamp.project1.util.ArrayList;
 import bitcamp.project1.vo.Finance;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 public class IncomeCommand {
   private final int PROCESS_LIST = 0;
   private final int PROCESS_SEARCH = 1;
@@ -18,36 +15,36 @@ public class IncomeCommand {
 
   ArrayList incomeList = new ArrayList();
 
-  public void autoIncomeData() {
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-    Finance income = new Finance();
-    income.setKindOfCome("수입");
-    income.setDate(LocalDate.parse("2024-06-27"));
-    income.setCategory("월급");
-    income.setAccount("현금");
-    income.setAmount(500);
-    income.setNo(Finance.getSeqNo());
-    incomeList.add(income);
-
-    Finance income1 = new Finance();
-    income1.setKindOfCome("수입");
-    income1.setDate(LocalDate.parse("2024-06-28"));
-    income1.setCategory("용돈");
-    income1.setAccount("현금");
-    income1.setAmount(1500);
-    income1.setNo(Finance.getSeqNo());
-    incomeList.add(income1);
-
-    Finance income2 = new Finance();
-    income2.setKindOfCome("수입");
-    income2.setDate(LocalDate.parse("2024-06-28"));
-    income2.setCategory("월급");
-    income2.setAccount("현금");
-    income2.setAmount(300);
-    income2.setNo(Finance.getSeqNo());
-    incomeList.add(income2);
-  }
+  //  public void autoIncomeData() {
+  //    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+  //
+  //    Finance income = new Finance();
+  //    income.setKindOfCome("수입");
+  //    income.setDate(LocalDate.parse("2024-06-27"));
+  //    income.setCategory("월급");
+  //    income.setAccount("현금");
+  //    income.setAmount(500);
+  //    income.setNo(Finance.getSeqNo());
+  //    incomeList.add(income);
+  //
+  //    Finance income1 = new Finance();
+  //    income1.setKindOfCome("수입");
+  //    income1.setDate(LocalDate.parse("2024-06-28"));
+  //    income1.setCategory("용돈");
+  //    income1.setAccount("현금");
+  //    income1.setAmount(1500);
+  //    income1.setNo(Finance.getSeqNo());
+  //    incomeList.add(income1);
+  //
+  //    Finance income2 = new Finance();
+  //    income2.setKindOfCome("수입");
+  //    income2.setDate(LocalDate.parse("2024-06-28"));
+  //    income2.setCategory("월급");
+  //    income2.setAccount("현금");
+  //    income2.setAmount(300);
+  //    income2.setNo(Finance.getSeqNo());
+  //    incomeList.add(income2);
+  //  }
 
   public void executeIncomeCommand(String subTitle) {
     switch (subTitle) {
@@ -75,7 +72,7 @@ public class IncomeCommand {
     income.setKindOfCome("수입");
     income.setDate(Prompt.inputDate("수입 날짜(yyyy-MM-dd)?"));
     income.setAmount(Prompt.inputInt("수입 금액?"));
-    income.setAccount(Prompt.input("수입출처?"));
+    income.setAccount(Prompt.inputInt("수입출처?"));
     income.setCategory(Prompt.input("카테고리?"));
     income.setNo(Finance.getSeqNo());
     incomeList.add(income);
@@ -110,7 +107,7 @@ public class IncomeCommand {
     }
     updateIncome.setDate(Prompt.inputDate("수입일(%s)?", updateIncome.getDate()));
     updateIncome.setAmount(Prompt.inputInt("수입금액(%s)", updateIncome.getAmount()));
-    updateIncome.setAccount(Prompt.input("수입출처(%s)?", updateIncome.getAccount()));
+    updateIncome.setAccount(Prompt.inputInt("수입출처(%s)?", updateIncome.getAccount()));
     updateIncome.setCategory(Prompt.input("카테고리(%s)", updateIncome.getCategory()));
     System.out.println("변경 완료했습니다.");
   }

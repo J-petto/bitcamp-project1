@@ -71,7 +71,6 @@ public class SettingCommand {
     }
   }
 
-
   public void updateSetting() {
     String command = Prompt.input("보유 현금을 수정하시겠습니까?(Y/N)");
     if (command.equalsIgnoreCase("Y")) {
