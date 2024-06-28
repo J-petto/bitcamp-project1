@@ -32,7 +32,7 @@ public class SettingCommand {
   }
 
   public void createSetting() {
-    if (settingDone == true) {
+    if (settingDone) {
       BankAccount cash = new BankAccount();
       System.out.println("현금");
       cash.setBankName("현금");
@@ -48,7 +48,6 @@ public class SettingCommand {
         userSettingList[BANK] = bankAccount;
       }
 
-
       BankAccount creditCard = new BankAccount();
       System.out.println("신용카드");
       reply = Prompt.input("신용카드를 추가 하시겠습니까(Y/N)?");
@@ -56,8 +55,8 @@ public class SettingCommand {
         creditCard.setBankName(Prompt.input("카드사명?"));
         creditCard.setDepositAmount(Prompt.inputInt("사용액?"));
         userSettingList[CREDIT] = creditCard;
-        settingDone = false;
       }
+      settingDone = false;
     } else {
       System.out.println("이미 계정이 생성되어 있습니다.");
     }
@@ -72,17 +71,71 @@ public class SettingCommand {
   }
 
   public void updateSetting() {
-    String command = Prompt.input("보유 현금을 수정하시겠습니까?(Y/N)");
-    if (command.equalsIgnoreCase("Y")) {
-
+    String command;
+    BankAccount cash = (BankAccount) userSettingList[CASH];
+    BankAccount bankAccount = (BankAccount) userSettingList[BANK];
+    BankAccount creditCard = (BankAccount) userSettingList[CREDIT];
+    while (true) {
+      command = Prompt.input("보유 현금을 수정하시겠습니까?(Y/N)");
+      if (command.equalsIgnoreCase("Y")) {
+        cash.setDepositAmount((Prompt.inputInt("수정 현금액?")));
+        System.out.println("수정했습니다.");
+        break;
+      } else if (command.equalsIgnoreCase("N")) {
+        System.out.printf("기존 현금 유지했습니다(%d)\n", cash.getDepositAmount());
+        break;
+      } else {
+        System.out.println("y 나 n 만 입력해주세요.");
+      }
     }
-    command = Prompt.input("보유 통장을 수정하시겠습니까?(Y/N)");
-    if (command.equalsIgnoreCase("Y")) {
-      int cash = Prompt.inputInt("수정 현금?");
+    while (true) {
+      command = Prompt.input("보유 통장을 수정하시겠습니까?(Y/N)");
+      if (command.equalsIgnoreCase("Y")) {
+        bankAccount.setBankName(Prompt.input("수정 은행명?"));
+        bankAccount.setDepositAmount(Prompt.inputInt("수정 통장 금액?"));
+        System.out.println("수정했습니다.");
+        break;
+      } else if (command.equalsIgnoreCase("N")) {
+        System.out.printf("기존 통장을 유지했습니다(%s. %d)\n", bankAccount.getBankName(),
+            bankAccount.getDepositAmount());
+        break;
+      } else {
+        System.out.println("y 나 n 만 입력해주세요.");
+      }
+    }
+    while (true) {
+      command = Prompt.input("보유 카드를 수정하시겠습니까?(Y/N)");
+      if (command.equalsIgnoreCase("Y")) {
+        creditCard.setBankName(Prompt.input("수정 카드사명?"));
+        creditCard.setDepositAmount(Prompt.inputInt("수정 카드 금액?"));
+        System.out.println("수정했습니다.");
+        break;
+      } else if (command.equalsIgnoreCase("N")) {
+        System.out.printf("기존 통장을 유지했습니다(%s. %d)\n", bankAccount.getBankName(),
+            bankAccount.getDepositAmount());
+        break;
+      } else {
+        System.out.println("y 나 n 만 입력해주세요.");
+      }
     }
   }
 
   public void deleteSetting() {
+    while (true) {
+      String command = Prompt.input("초기 데이터를 삭제 하시겠습니까?(Y/N)");
+      if (command.equalsIgnoreCase("Y")) {
+        userSettingList[CASH] = null;
+        userSettingList[BANK] = null;
+        userSettingList[CREDIT] = null;
+        settingDone = true;
+        break;
+      } else if (command.equalsIgnoreCase("N")) {
+        System.out.println("초기 데이터를 유지했습니다");
+        break;
+      } else {
+        System.out.println("y 나 n 만 입력해주세요.");
+      }
+    }
   }
 
   public Object[] getUserSettingList() {
