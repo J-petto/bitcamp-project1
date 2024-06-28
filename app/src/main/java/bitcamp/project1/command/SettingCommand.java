@@ -1,6 +1,7 @@
 package bitcamp.project1.command;
 
 import bitcamp.project1.Prompt.Prompt;
+import bitcamp.project1.util.ArrayList;
 import bitcamp.project1.vo.BankAccount;
 import bitcamp.project1.vo.Cash;
 import bitcamp.project1.vo.CreditCard;
@@ -23,9 +24,6 @@ public class SettingCommand {
       case "목록":
         listISetting();
         break;
-      case "조회":
-        searchSetting();
-        break;
       case "변경":
         updateSetting();
         break;
@@ -38,31 +36,44 @@ public class SettingCommand {
 
   public void createSetting() {
     if (settingDone == true) {
-      Cash cash = new Cash();
+      BankAccount cash = new BankAccount();
       System.out.println("현금");
-      cash.setCuurentAmount(Prompt.inputInt("잔액?"));
+      cash.setBankName("현금");
+      cash.setDepositAmount(Prompt.inputInt("잔액?"));
       userSettingList[CASH] = cash;
 
       BankAccount bankAccount = new BankAccount();
       System.out.println("통장");
-      bankAccount.setBankName(Prompt.input("은행명?"));
-      bankAccount.setDepositAmount(Prompt.inputInt("잔액?"));
-      userSettingList[BANK] = bankAccount;
+      String reply = Prompt.input("계좌를 추가 하시겠습니까(Y/N)?");
+      if (reply.equalsIgnoreCase("y")) {
+        bankAccount.setBankName(Prompt.input("은행명?"));
+        bankAccount.setDepositAmount(Prompt.inputInt("잔액?"));
+        userSettingList[BANK] = bankAccount;
+      }
 
-      CreditCard creditCard = new CreditCard();
+
+      BankAccount creditCard = new BankAccount();
       System.out.println("신용카드");
-      creditCard.setCardName(Prompt.input("카드사명?"));
-      userSettingList[CREDIT] = creditCard;
-      settingDone = false;
+      reply = Prompt.input("신용카드를 추가 하시겠습니까(Y/N)?");
+      if (reply.equalsIgnoreCase("y")) {
+        creditCard.setBankName(Prompt.input("카드사명?"));
+        creditCard.setDepositAmount(Prompt.inputInt("사용액?"));
+        userSettingList[CREDIT] = creditCard;
+        settingDone = false;
+      }
     } else {
       System.out.println("이미 계정이 생성되어 있습니다.");
     }
   }
 
+  public void listISetting() {
+    System.out.println("구분 상세내용 금액");
+    for (Object obj : userSettingList) {
+      BankAccount count = (BankAccount) obj;
+      System.out.printf("%s %d\n", count.getBankName(), count.getDepositAmount());
+    }
+  }
 
-  public void listISetting() {}
-
-  public void searchSetting() {}
 
   public void updateSetting() {
     String command = Prompt.input("보유 현금을 수정하시겠습니까?(Y/N)");
@@ -83,7 +94,9 @@ public class SettingCommand {
       creditCard.setPayAmount(Prompt.inputInt("수정 카드 금액?"));
     }
   }
-  public void deleteSetting() {}
+
+  public void deleteSetting() {
+  }
 
   public Object[] getUserSettingList() {
     return userSettingList;

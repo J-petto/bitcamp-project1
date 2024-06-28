@@ -3,7 +3,6 @@ package bitcamp.project1.command;
 import bitcamp.project1.Prompt.Prompt;
 import bitcamp.project1.util.ArrayList;
 import bitcamp.project1.vo.Finance;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -17,6 +16,8 @@ public class OutcomeCommand {
   private final int CASH = 1;
 
   ArrayList outcomeList = new ArrayList();
+  SettingCommand settingCommand = new SettingCommand();
+  Object[] = settingCommand.get();
 
   public void autoOutcomeData() {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
