@@ -59,15 +59,11 @@ public class SettingCommand {
   }
 
 
-  public void listISetting() {
-  }
+  public void listISetting() {}
 
-  public void searchSetting() {
-  }
+  public void searchSetting() {}
 
-  public void updateSetting() {
-  }
+  public void updateSetting() {}
 
-  public void deleteSetting() {
-  }
+  public void deleteSetting() {}
 }
