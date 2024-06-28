@@ -37,6 +37,7 @@ public class IncomeCommand {
 
     private void createIncome() {
         Income income = new Income();
+        income.setKindOfCome("입금");
         income.setDate(Prompt.inputDate("입금일(yyyy-MM-dd)?"));
         income.setCategory(Prompt.input("항목 입력>"));
         income.setAccount(Prompt.input("계좌/현금 입력>"));
