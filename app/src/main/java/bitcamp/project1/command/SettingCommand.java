@@ -5,10 +5,11 @@ import bitcamp.project1.util.ArrayList;
 import bitcamp.project1.vo.BankAccount;
 
 public class SettingCommand {
-  
-  ArrayList totalCash = new ArrayList();
-  ArrayList totalBank = new ArrayList();
-  ArrayList totalCredit = new ArrayList();
+  final int CASH = 0;
+  final int BANK = 1;
+  final int CREDIT = 2;
+
+  private Object[] userSettingList = new Object[3];
 
   private boolean settingDone = true;
 
@@ -40,7 +41,7 @@ public class SettingCommand {
       System.out.println("현금");
       cash.setBankName("현금");
       cash.setDepositAmount(Prompt.inputInt("잔액?"));
-      totalCash.add(cash);
+      userSettingList[CASH] = cash;
 
       BankAccount bankAccount = new BankAccount();
       System.out.println("통장");
@@ -48,7 +49,7 @@ public class SettingCommand {
       if (reply.equalsIgnoreCase("y")) {
         bankAccount.setBankName(Prompt.input("은행명?"));
         bankAccount.setDepositAmount(Prompt.inputInt("잔액?"));
-        totalBank.add(bankAccount);
+        userSettingList[BANK] = bankAccount;
       }
 
 
@@ -58,7 +59,7 @@ public class SettingCommand {
       if (reply.equalsIgnoreCase("y")) {
         creditCard.setBankName(Prompt.input("카드사명?"));
         creditCard.setDepositAmount(Prompt.inputInt("사용액?"));
-        totalCredit.add(creditCard);
+        userSettingList[CREDIT] = creditCard;
         settingDone = false;
       }
     } else {
@@ -80,14 +81,19 @@ public class SettingCommand {
 
     }
 
-  }
-
-  public void searchSetting() {
-  }
-
   public void updateSetting() {
-  }
+    String command = Prompt.input("보유 현금을 수정하시겠습니까?(Y/N)");
+    if(command.equalsIgnoreCase("Y")){
 
-  public void deleteSetting() {
+    }
+    command = Prompt.input("보유 통장을 수정하시겠습니까?(Y/N)");
+    if(command.equalsIgnoreCase("Y")){
+      int cash = Prompt.inputInt("수정 현금?");
+    }
+  }
+  public void deleteSetting() {}
+
+  public Object[] getUserSettingList() {
+    return userSettingList;
   }
 }
