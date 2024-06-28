@@ -4,6 +4,7 @@ import bitcamp.project1.Prompt.Prompt;
 import bitcamp.project1.command.IncomeCommand;
 import bitcamp.project1.command.InformCommand;
 import bitcamp.project1.command.OutcomeCommand;
+import bitcamp.project1.command.SettingCommand;
 
 public class App {
   static String[] mainMenus = new String[] {"수입입력", "지출입력", "수입지출목록", "설정", "종료"};
@@ -14,6 +15,7 @@ public class App {
   OutcomeCommand outcomeCommand = new OutcomeCommand();
   InformCommand informCommand =
       new InformCommand(incomeCommand.getIncomeList(), outcomeCommand.getOutcomeList());
+  SettingCommand settingCommand = new SettingCommand();
 
   public static void main(String[] args) {
     App app = new App();
@@ -110,7 +112,7 @@ public class App {
               informCommand.executeInformCommand(subMenuTitle);
               break;
             case "설정":
-              informCommand.executeInformCommand(subMenuTitle);
+              settingCommand.executeSettingCommand(subMenuTitle);
               break;
           }
         }

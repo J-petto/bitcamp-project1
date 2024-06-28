@@ -36,11 +36,12 @@ public class SettingCommand {
 
   public void createSetting() {
     Cash cash = new Cash();
-    CreditCard creditCard = new CreditCard();
+    System.out.println("현금");
     cash.setCuurentAmount(Prompt.inputInt("잔액?"));
     ((ArrayList) settings[CASH]).add(cash);
 
     while (true) {
+      System.out.println("통장");
       String reply = Prompt.input("계좌를 추가 하시겠습니까(Y/N)?");
       if (!reply.equalsIgnoreCase("y")) {
         break;
@@ -52,13 +53,14 @@ public class SettingCommand {
     }
 
     while (true) {
+      System.out.println("신용카드");
       String reply = Prompt.input("신용카드를 추가 하시겠습니까(Y/N)?");
       if (!reply.equalsIgnoreCase("y")) {
         break;
       }
-      BankAccount bankAccount = new BankAccount();
-      bankAccount.setBankName(Prompt.input("카드사명?"));
-      ((ArrayList) settings[CREDIT]).add(bankAccount);
+      CreditCard creditCard = new CreditCard();
+      creditCard.setCardName(Prompt.input("카드사명?"));
+      ((ArrayList) settings[CREDIT]).add(creditCard);
     }
   }
 
