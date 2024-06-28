@@ -29,6 +29,7 @@ public class InformCommand {
         viewTotal();
         break;
       case "일자별 수입 지출":
+        //        System.out.println(Arrays.toString(uniqueList()));
         viewDate();
         break;
       case "항목별 수입 지출":
@@ -107,9 +108,7 @@ public class InformCommand {
 
   // 2. 일자별 수입 지출 목록
   private void viewDate() {
-    Object[] total = union();
-    ;
-    Object[] uniqueDate = uniqueList();
+    Object[] uniqueDate = uniqueDate(union());
     System.out.println("날짜 수입 지출 총계");
     for (Object obj : uniqueDate) {
       LocalDate date = (LocalDate) obj;
@@ -144,32 +143,63 @@ public class InformCommand {
 
   //3. 품목별 수입 지출 목록
   private void viewCategory() {
+    Object[] uniqueIncome = uniqueList(incomeList);
+    for (Object obj : uniqueIncome) {
+      String car = (String) obj;
+      int total = 0;
+      for (Object value : incomeList.toArray()) {
+        Income income = (Income) value;
+        if (car.equals(income.getCategory())) {
+          total += income.getAmount();
+        }
+      }
+      System.out.printf("%s, %d\n", obj.toString(), total);
+    }
+
+    Object[] uniqueOutcome = uniqueList(outcomeList);
+    for (Object obj : uniqueOutcome) {
+      String car = (String) obj;
+      int total = 0;
+      for (Object value : outcomeList.toArray()) {
+        Income income = (Income) value;
+        if (car.equals(income.getCategory())) {
+          total += income.getAmount();
+        }
+      }
+      System.out.printf("%s, %d\n", obj.toString(), total);
+    }
   }
 
-  private Object[] union() {
+  private ArrayList union() {
     int incomeSize = incomeList.size();
     int outcomeSize = outcomeList.size();
-    Object[] result = new Object[incomeSize + outcomeSize];
+    ArrayList result = new ArrayList();
     for (int i = 0; i < incomeSize; i++) {
-      result[i] = incomeList.get(i);
+      result.add(incomeList.get(i));
     }
     for (int i = incomeSize; i < outcomeSize; i++) {
-      result[i] = outcomeList.get(i);
+      result.add(incomeList.get(i));
     }
     return result;
   }
 
-  // 모든 데이터의 Date 정렬 코드
-  private Object[] uniqueList() {
+  private Object[] uniqueDate(ArrayList list) {
     HashSet<LocalDate> set = new HashSet<>();
-    for (int i = 0; i < incomeList.size(); i++) {
-      Income outcome = (Income) incomeList.get(i);
-      set.add(outcome.getDate());
+    for (Object obj : list.toArray()) {
+      Income value = (Income) obj;
+      set.add(value.getDate());
     }
 
-    for (int i = 0; i < outcomeList.size(); i++) {
-      Income outcome = (Income) outcomeList.get(i);
-      set.add(outcome.getDate());
+    Object[] arr = set.toArray();
+    Arrays.sort(arr);
+    return arr;
+  }
+
+  private Object[] uniqueList(ArrayList list) {
+    HashSet<String> set = new HashSet<>();
+    for (Object obj : list.toArray()) {
+      Income value = (Income) obj;
+      set.add(value.getCategory());
     }
     Object[] arr = set.toArray();
     Arrays.sort(arr);
