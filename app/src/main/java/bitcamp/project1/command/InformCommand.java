@@ -15,12 +15,6 @@ public class InformCommand {
 
   ArrayList incomeList = new ArrayList();
   ArrayList outcomeList = new ArrayList();
-  ArrayList totalList = new ArrayList();
-
-  String ansiBlue = "\033[94m";
-  String ansiRed = "\033[91m";
-  String ansiEnd = "\033[0m";
-  String dotCode = "\u25AE";
 
   public InformCommand(ArrayList incomeList, ArrayList outcomeList) {
     this.incomeList = incomeList;
@@ -60,13 +54,13 @@ public class InformCommand {
     int outcomeTotal = allSum(false);
     int total = incomeTotal - outcomeTotal;
 
-    System.out.printf("총 수입 :  %d원 ", incomeTotal);
+    System.out.printf("총 수입 :  %d ", incomeTotal);
     printGraph(PROGRESS_INCOME, incomeTotal, total);
 
-    System.out.printf("총 지출 : -%d원 ", outcomeTotal);
+    System.out.printf("총 지출 : -%d ", outcomeTotal);
     printGraph(PROGRESS_OUTCOME, outcomeTotal, total);
 
-    System.out.printf("총   계 : %d원 ", total);
+    System.out.printf("총   계 : %d ", total);
     printGraph(PROGRESS_TOTAL, Math.abs(total), total);
   }
 
@@ -74,6 +68,7 @@ public class InformCommand {
     String ansiBlue = "\033[94m";
     String ansiRed = "\033[91m";
     String ansiEnd = "\033[0m";
+    String ansiBold = "\033[1m";
     String dotCode = "\u25AE";
 
     int barLength = 30;
@@ -100,6 +95,19 @@ public class InformCommand {
     System.out.println();
   }
 
+  public void printFormatted(String text, int label, int value, int total) {
+    String formattedValue = String.format("%,d", value);
+    System.out.printf("%s", text);
+    for(int i = 0; i < 8 - text.length(); i++){
+      System.out.print("  ");
+    }
+    System.out.print("|");
+    for(int i = 0; i < 10 - formattedValue.length(); i++){
+      System.out.print(" ");
+    }
+    System.out.printf("%s원 ",formattedValue);
+    printGraph(label, value, total);
+  }
 
   // true -> income 비용 모두 더한 값 반환
   // false -> outcome 비용 모두 더한 값 반환
@@ -144,26 +152,14 @@ public class InformCommand {
     }
   }
 
-  private void totalArray() {
-    for (Object obj : incomeList.toArray()) {
-      Finance addIncome = (Finance) obj;
-      totalList.add(addIncome);
-    }
-    for (Object obj : outcomeList.toArray()) {
-      Finance addOutcome = (Finance) obj;
-      totalList.add(addOutcome);
-    }
-  }
-
   //3. 품목별 수입 지출 목록
   private void viewCategory(String subTitle) {
-    Object[] uniqueIncome = uniqueList(incomeList, subTitle);
     int incomeTotal = allSum(true);
     int outcomeTotal = allSum(false);
 
-    System.out.println("---[수입]-------------------");
-    System.out.printf("총 수입: %d ", incomeTotal);
-    printGraph(PROGRESS_INCOME, Math.abs(incomeTotal), incomeTotal);
+    Object[] uniqueIncome = uniqueList(incomeList, subTitle);
+    System.out.println("[수입]----------------------");
+    printFormatted("수입총합", PROGRESS_INCOME, Math.abs(incomeTotal), incomeTotal);
     for (Object obj : uniqueIncome) {
       String car = (String) obj;
       int total = 0;
@@ -173,14 +169,12 @@ public class InformCommand {
           total += income.getAmount();
         }
       }
-      System.out.printf("%s: %d ", obj.toString(), total);
-      printGraph(PROGRESS_INCOME, total, incomeTotal);
+      printFormatted(obj.toString(), PROGRESS_INCOME, Math.abs(total), incomeTotal);
     }
 
-    Object[] uniqueOutcome = uniqueList(incomeList, subTitle);
-    System.out.println("---[지출]-------------------");
-    System.out.printf("총 지출: %d ", outcomeTotal);
-    printGraph(PROGRESS_OUTCOME, Math.abs(outcomeTotal), outcomeTotal);
+    Object[] uniqueOutcome = uniqueList(outcomeList, subTitle);
+    System.out.println("[지출]----------------------");
+    printFormatted("지출총합", PROGRESS_OUTCOME, Math.abs(outcomeTotal), outcomeTotal);
     for (Object obj : uniqueOutcome) {
       String car = (String) obj;
       int total = 0;
@@ -190,8 +184,7 @@ public class InformCommand {
           total += income.getAmount();
         }
       }
-      System.out.printf("%s: %d ", obj.toString(), total);
-      printGraph(PROGRESS_OUTCOME, Math.abs(total), outcomeTotal);
+      printFormatted(obj.toString(), PROGRESS_OUTCOME, Math.abs(total), outcomeTotal);
     }
   }
 
