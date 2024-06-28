@@ -29,7 +29,6 @@ public class InformCommand {
         viewTotal();
         break;
       case "일자별 수입 지출":
-        //        System.out.println(Arrays.toString(uniqueList()));
         viewDate();
         break;
       case "항목별 수입 지출":
@@ -53,23 +52,21 @@ public class InformCommand {
 
   // 1.총 지출 수입 목록
   private void viewTotal() {
-    System.out.println("총수입 총지출 총합");
-
     int incomeTotal = allSum(true);
     int outcomeTotal = allSum(false);
     int total = incomeTotal - outcomeTotal;
 
-    System.out.printf("총 수입 : %d원 ", incomeTotal);
+    System.out.printf("총 수입 :  %d원 ", incomeTotal);
     for (int i = 0; i < percent(incomeTotal); i++) {
       System.out.printf("%s%s%s", ansiBlue, dotCode, ansiEnd);
     }
     System.out.println();
-    System.out.printf("총 지출 : %d원 ", outcomeTotal);
+    System.out.printf("총 지출 : -%d원 ", outcomeTotal);
     for (int i = 0; i < percent(outcomeTotal); i++) {
       System.out.printf("%s%s%s", ansiRed, dotCode, ansiEnd);
     }
     System.out.println();
-    System.out.printf("총계 : %d원 ", total);
+    System.out.printf("총   계 : %d원 ", total);
     for (int i = 0; i < percent(Math.abs(total)); i++) {
       if(total < 0){
         System.out.printf("%s%s%s", ansiRed, dotCode, ansiEnd);
@@ -144,6 +141,7 @@ public class InformCommand {
   //3. 품목별 수입 지출 목록
   private void viewCategory() {
     Object[] uniqueIncome = uniqueList(incomeList);
+    System.out.println("수입 ---------------------------- ");
     for (Object obj : uniqueIncome) {
       String car = (String) obj;
       int total = 0;
@@ -157,6 +155,7 @@ public class InformCommand {
     }
 
     Object[] uniqueOutcome = uniqueList(outcomeList);
+    System.out.println("지출 ---------------------------- ");
     for (Object obj : uniqueOutcome) {
       String car = (String) obj;
       int total = 0;

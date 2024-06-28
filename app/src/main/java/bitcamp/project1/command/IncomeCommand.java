@@ -8,7 +8,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class IncomeCommand {
-    private final int PROCESS_LIST = 1;
+    private final int PROCESS_LIST = 0;
+    private final int PROCESS_SEARCH = 1;
     private final int PROCESS_UPDATE = 2;
     private final int PROCESS_DELETE = 3;
 
@@ -80,13 +81,13 @@ public class IncomeCommand {
         incomeList.add(income);
     }
 
-
     private void listIncome() {
         System.out.println("입금/출금 날짜 항목 금액");
         printNoList(PROCESS_LIST);
     }
 
     private void searchIncome() {
+        printNoList(PROCESS_SEARCH);
         int incomeNo = Prompt.inputInt("조회 할 입금 번호:");
         Income searchedIncome = (Income) incomeList.get(incomeList.indexOf(new Income(incomeNo)));
         if (searchedIncome == null) {
@@ -129,10 +130,17 @@ public class IncomeCommand {
     private void printNoList(int processNo) {
         for (Object object : incomeList.toArray()) {
             Income income = (Income) object;
-            if (processNo == PROCESS_UPDATE || processNo == PROCESS_DELETE) {
-                System.out.printf("%d. ", income.getNo());
+            switch (processNo){
+                case PROCESS_UPDATE :
+                case PROCESS_DELETE :
+                case PROCESS_SEARCH :
+                    System.out.printf("%d. ", income.getNo());
+                case PROCESS_LIST :
+                    System.out.printf("입금 %s %s %s\n", income.getDate(), income.getCategory(), income.getAmount());
+                break;
+                default:
             }
-            System.out.printf("입금 %s %s %s\n", income.getDate(), income.getCategory(), income.getAmount());
+
         }
     }
 

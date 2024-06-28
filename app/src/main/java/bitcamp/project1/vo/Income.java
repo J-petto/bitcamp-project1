@@ -18,7 +18,9 @@ public class Income {
     if (this == object) return true;
     if (object == null || getClass() != object.getClass()) return false;
     Income income = (Income) object;
-    return no == income.no && Objects.equals(date, income.date);
+    System.out.println(date);
+    System.out.println(income.date);
+    return no == income.no;
   }
 
   @Override
@@ -27,7 +29,6 @@ public class Income {
   }
 
   public Income(){
-
   }
 
   public Income(int no){
