@@ -2,7 +2,7 @@ package bitcamp.project1.command;
 
 import bitcamp.project1.Prompt.Prompt;
 import bitcamp.project1.util.ArrayList;
-import bitcamp.project1.vo.Income;
+import bitcamp.project1.vo.Total;
 
 public class IncomeCommand {
     private final int PROCESS_LIST = 1;
@@ -36,13 +36,13 @@ public class IncomeCommand {
     }
 
     private void createIncome() {
-        Income income = new Income();
+        Total income = new Total();
         income.setKindOfCome("입금");
         income.setDate(Prompt.inputDate("입금일(yyyy-MM-dd)?"));
         income.setCategory(Prompt.input("항목 입력>"));
         income.setAccount(Prompt.input("계좌/현금 입력>"));
         income.setAmount(Prompt.inputInt("입금 금액 입력>"));
-        income.setNo(Income.getSeqNo());
+        income.setNo(Total.getSeqNo());
         incomeList.add(income);
     }
 
@@ -54,7 +54,7 @@ public class IncomeCommand {
 
     private void searchIncome() {
         int incomeNo = Prompt.inputInt("조회 할 입금 번호:");
-        Income searchedIncome = (Income) incomeList.get(incomeList.indexOf(new Income(incomeNo)));
+        Total searchedIncome = (Total) incomeList.get(incomeList.indexOf(new Total(incomeNo)));
         if (searchedIncome == null) {
             System.out.println("없는 입금 번호입니다.");
             return;
@@ -68,7 +68,7 @@ public class IncomeCommand {
     public void updateIncome(){
         printNoList(PROCESS_UPDATE);
         int incomeNo = Prompt.inputInt("변경 할 입금 번호:");
-        Income deletedIncome = (Income) incomeList.get(incomeList.indexOf(new Income(incomeNo)));
+        Total deletedIncome = (Total) incomeList.get(incomeList.indexOf(new Total(incomeNo)));
         if (deletedIncome == null) {
             System.out.println("없는 입금 번호입니다.");
             return;
@@ -83,7 +83,7 @@ public class IncomeCommand {
     private void deleteIncome() {
         printNoList(PROCESS_DELETE);
         int incomeNo = Prompt.inputInt("삭제 할 입금 번호>");
-        Income deletedIncome = (Income) incomeList.get(incomeList.indexOf(new Income(incomeNo)));
+        Total deletedIncome = (Total) incomeList.get(incomeList.indexOf(new Total(incomeNo)));
         if (deletedIncome != null) {
             incomeList.remove(incomeList.indexOf(deletedIncome));
             System.out.println("삭제 완료했습니다.");
@@ -94,7 +94,7 @@ public class IncomeCommand {
 
     private void printNoList(int processNo) {
         for (Object object : incomeList.toArray()) {
-            Income income = (Income) object;
+            Total income = (Total) object;
             if (processNo == PROCESS_UPDATE || processNo == PROCESS_DELETE) {
                 System.out.printf("%d. ", income.getNo());
             }
