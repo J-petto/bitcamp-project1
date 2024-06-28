@@ -5,11 +5,14 @@ import java.util.Objects;
 
 public class Income {
   private static int seqNo;
+  private static int incomeNo;
+  private static int outcomeNo;
+
+  private String kindOfCome;
 
   private int no;
-  private int amount;
-  private String kindOfCome;
   private LocalDate date;
+  private int amount;
   private String account;
   private String category;
 
@@ -18,8 +21,6 @@ public class Income {
     if (this == object) return true;
     if (object == null || getClass() != object.getClass()) return false;
     Income income = (Income) object;
-    System.out.println(date);
-    System.out.println(income.date);
     return no == income.no;
   }
 

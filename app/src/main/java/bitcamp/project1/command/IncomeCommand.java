@@ -22,7 +22,7 @@ public class IncomeCommand {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         Income income = new Income();
-        income.setKindOfCome("입금");
+        income.setKindOfCome("수입");
         income.setDate(LocalDate.parse("2024-06-27"));
         income.setCategory("월급");
         income.setAccount("현금");
@@ -31,7 +31,7 @@ public class IncomeCommand {
         incomeList.add(income);
 
         Income income1 = new Income();
-        income1.setKindOfCome("입금");
+        income1.setKindOfCome("수입");
         income1.setDate(LocalDate.parse("2024-06-28"));
         income1.setCategory("용돈");
         income1.setAccount("현금");
@@ -40,7 +40,7 @@ public class IncomeCommand {
         incomeList.add(income1);
 
         Income income2 = new Income();
-        income2.setKindOfCome("입금");
+        income2.setKindOfCome("수입");
         income2.setDate(LocalDate.parse("2024-06-28"));
         income2.setCategory("월급");
         income2.setAccount("현금");
@@ -72,58 +72,58 @@ public class IncomeCommand {
 
     private void createIncome() {
         Income income = new Income();
-        income.setKindOfCome("입금");
-        income.setDate(Prompt.inputDate("입금일(yyyy-MM-dd)?"));
-        income.setCategory(Prompt.input("항목 입력>"));
-        income.setAccount(Prompt.input("계좌/현금 입력>"));
-        income.setAmount(Prompt.inputInt("입금 금액 입력>"));
+        income.setKindOfCome("수입");
+        income.setDate(Prompt.inputDate("수입 날짜(yyyy-MM-dd)?"));
+        income.setAmount(Prompt.inputInt("수입 금액?"));
+        income.setAccount(Prompt.input("계좌/현금?"));
+        income.setCategory(Prompt.input("카테고리?"));
         income.setNo(Income.getSeqNo());
         incomeList.add(income);
     }
 
     private void listIncome() {
-        System.out.println("입금/출금 날짜 항목 금액");
+        System.out.println("날짜 항목 금액");
         printNoList(PROCESS_LIST);
     }
 
     private void searchIncome() {
         printNoList(PROCESS_SEARCH);
-        int incomeNo = Prompt.inputInt("조회 할 입금 번호:");
+        int incomeNo = Prompt.inputInt("조회 할 수입 번호?");
         Income searchedIncome = (Income) incomeList.get(incomeList.indexOf(new Income(incomeNo)));
         if (searchedIncome == null) {
-            System.out.println("없는 입금 번호입니다.");
+            System.out.println("없는 수입 번호입니다.");
             return;
         }
         System.out.printf("날짜 : %s\n", searchedIncome.getDate());
+        System.out.printf("금액 : %d\n", searchedIncome.getAmount());
+        System.out.printf("수입 출처 : %s\n", searchedIncome.getAccount());
         System.out.printf("항목 : %s\n", searchedIncome.getCategory());
-        System.out.printf("입금 방법 : %s\n", searchedIncome.getAccount());
-        System.out.printf("입금 금액 : %d\n", searchedIncome.getAmount());
     }
 
     public void updateIncome(){
         printNoList(PROCESS_UPDATE);
-        int incomeNo = Prompt.inputInt("변경 할 입금 번호:");
+        int incomeNo = Prompt.inputInt("변경 할 수입 번호?");
         Income deletedIncome = (Income) incomeList.get(incomeList.indexOf(new Income(incomeNo)));
         if (deletedIncome == null) {
-            System.out.println("없는 입금 번호입니다.");
+            System.out.println("없는 수입 번호입니다.");
             return;
         }
-        deletedIncome.setDate(Prompt.inputDate("입금일(yyyy-MM-dd)?"));
-        deletedIncome.setCategory(Prompt.input("변경할 항목>"));
-        deletedIncome.setAccount(Prompt.input("변경할 입금 계좌>"));
-        deletedIncome.setAmount(Prompt.inputInt("변경할 입금 금액>"));
+        deletedIncome.setDate(Prompt.inputDate("수입일(yyyy-MM-dd)?"));
+        deletedIncome.setAmount(Prompt.inputInt("변경할 수입 금액"));
+        deletedIncome.setAccount(Prompt.input("변경할 수입 출처(계좌/현금)?"));
+        deletedIncome.setCategory(Prompt.input("변경할 카테고리"));
         System.out.println("변경 완료했습니다.");
     }
 
     private void deleteIncome() {
         printNoList(PROCESS_DELETE);
-        int incomeNo = Prompt.inputInt("삭제 할 입금 번호>");
+        int incomeNo = Prompt.inputInt("삭제 할 수입 번호?");
         Income deletedIncome = (Income) incomeList.get(incomeList.indexOf(new Income(incomeNo)));
         if (deletedIncome != null) {
             incomeList.remove(incomeList.indexOf(deletedIncome));
             System.out.println("삭제 완료했습니다.");
         }else {
-            System.out.println("없는 입금 번호입니다.");
+            System.out.println("없는 수입 번호입니다.");
         }
     }
 
@@ -136,7 +136,7 @@ public class IncomeCommand {
                 case PROCESS_SEARCH :
                     System.out.printf("%d. ", income.getNo());
                 case PROCESS_LIST :
-                    System.out.printf("입금 %s %s %s\n", income.getDate(), income.getCategory(), income.getAmount());
+                    System.out.printf("%s %s %s\n", income.getDate(), income.getCategory(), income.getAmount());
                 break;
                 default:
             }

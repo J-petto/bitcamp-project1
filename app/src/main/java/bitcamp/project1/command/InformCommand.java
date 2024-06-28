@@ -77,9 +77,14 @@ public class InformCommand {
     System.out.println();
   }
 
+  public void Graph(int label, int value, int total){
+    int barLength = 100;
+    int filledLength = value / total * barLength;
+  }
+
   private int percent(int value){
     while (value > 100){
-      value = value / 10;
+      value = value / 100;
     }
     return value;
   }
@@ -141,7 +146,15 @@ public class InformCommand {
   //3. 품목별 수입 지출 목록
   private void viewCategory() {
     Object[] uniqueIncome = uniqueList(incomeList);
-    System.out.println("수입 ---------------------------- ");
+    int incomeTotal = allSum(true);
+    int outcomeTotal = allSum(false);
+
+    System.out.println("---[수입]-------------------");
+    System.out.printf("총 수입 : %d ", incomeTotal);
+    for (int i = 0; i < percent(incomeTotal); i++) {
+      System.out.printf("%s%s%s", ansiBlue, dotCode, ansiEnd);
+    }
+    System.out.println();
     for (Object obj : uniqueIncome) {
       String car = (String) obj;
       int total = 0;
@@ -151,11 +164,20 @@ public class InformCommand {
           total += income.getAmount();
         }
       }
-      System.out.printf("%s, %d\n", obj.toString(), total);
+      System.out.printf("%s: %d ", obj.toString(), total);
+      for (int i = 0; i < percent(total); i++) {
+        System.out.printf("%s%s%s", ansiBlue, dotCode, ansiEnd);
+      }
+      System.out.println();
     }
 
     Object[] uniqueOutcome = uniqueList(outcomeList);
-    System.out.println("지출 ---------------------------- ");
+    System.out.println("---[지출]-------------------");
+    System.out.printf("총 지출 : %d ", outcomeTotal);
+    for (int i = 0; i < percent(outcomeTotal); i++) {
+      System.out.printf("%s%s%s", ansiRed, dotCode, ansiEnd);
+    }
+    System.out.println();
     for (Object obj : uniqueOutcome) {
       String car = (String) obj;
       int total = 0;
@@ -165,7 +187,11 @@ public class InformCommand {
           total += income.getAmount();
         }
       }
-      System.out.printf("%s, %d\n", obj.toString(), total);
+      System.out.printf("%s: %d ", obj.toString(), total);
+      for (int i = 0; i < percent(total); i++) {
+        System.out.printf("%s%s%s", ansiRed, dotCode, ansiEnd);
+      }
+      System.out.println();
     }
   }
 
