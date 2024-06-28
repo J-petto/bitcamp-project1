@@ -1,7 +1,6 @@
 package bitcamp.project1.command;
 
 import bitcamp.project1.Prompt.Prompt;
-import bitcamp.project1.util.ArrayList;
 import bitcamp.project1.vo.BankAccount;
 import bitcamp.project1.vo.Cash;
 import bitcamp.project1.vo.CreditCard;
@@ -68,11 +67,20 @@ public class SettingCommand {
   public void updateSetting() {
     String command = Prompt.input("보유 현금을 수정하시겠습니까?(Y/N)");
     if(command.equalsIgnoreCase("Y")){
-
+      Cash cash = (Cash) userSettingList[CASH];
+      cash.setCuurentAmount(Prompt.inputInt("수정 현금액?"));
     }
     command = Prompt.input("보유 통장을 수정하시겠습니까?(Y/N)");
     if(command.equalsIgnoreCase("Y")){
-      int cash = Prompt.inputInt("수정 현금?");
+      BankAccount bankAccount = (BankAccount) userSettingList[CASH];
+      bankAccount.setBankName(Prompt.input("수정 은행명?"));
+      bankAccount.setDepositAmount(Prompt.inputInt("수정 통장 금액?"));
+    }
+    command = Prompt.input("보유 카드를 수정하시겠습니까?(Y/N)");
+    if(command.equalsIgnoreCase("Y")){
+      CreditCard creditCard = (CreditCard) userSettingList[CASH];
+      creditCard.setCardName(Prompt.input("수정 카드사명?"));
+      creditCard.setPayAmount(Prompt.inputInt("수정 카드 금액?"));
     }
   }
   public void deleteSetting() {}
