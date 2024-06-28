@@ -2,7 +2,7 @@ package bitcamp.project1.command;
 
 import bitcamp.project1.util.ArrayList;
 import bitcamp.project1.vo.Income;
-import bitcamp.project1.vo.Outcome;
+
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -64,7 +64,7 @@ public class InformCommand {
       }
     }else {
       for(Object obj : outcomeList.toArray()){
-        Outcome plusOutcome = (Outcome) obj;
+        Income plusOutcome = (Income) obj;
         sum += plusOutcome.getAmount();
       }
     }
@@ -84,7 +84,7 @@ public class InformCommand {
         totalIncome += income.getAmount();
       }
       for (int i = 0; i < outcomeList.size(); i++){
-        Outcome outcome = (Outcome) outcomeList.get(i);
+        Income outcome = (Income) outcomeList.get(i);
         totalOutcome += outcome.getAmount();
       }
       System.out.printf("%s, %d, %d", date.toString(), totalIncome, totalOutcome);
@@ -98,7 +98,7 @@ public class InformCommand {
       totalList.add(addIncome);
     }
     for(Object obj : outcomeList.toArray()){
-      Outcome addOutcome = (Outcome) obj;
+      Income addOutcome = (Income) obj;
       totalList.add(addOutcome);
     }
   }
@@ -123,7 +123,7 @@ public class InformCommand {
   private Object[] uniqueList(){
     HashSet<LocalDate> set = new HashSet();
     for (int i = 0; i < outcomeList.size(); i++){
-      Outcome outcome = (Outcome) outcomeList.get(i);
+      Income outcome = (Income) outcomeList.get(i);
       set.add(outcome.getDate());
     }
     Object[] arr = set.toArray();
