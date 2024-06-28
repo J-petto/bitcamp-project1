@@ -11,10 +11,10 @@ public class SettingCommand {
   private final int BANK = 1;
   private final int CREDIT = 2;
 
+  ArrayList cashList = new ArrayList();
   ArrayList bankList = new ArrayList();
   ArrayList creditCardList = new ArrayList();
-  ArrayList cashList = new ArrayList();
-  Object[] settings = {bankList, creditCardList, cashList};
+  Object[] settings = {cashList, bankList, creditCardList};
 
   public void executeSettingCommand(String subTitle) {
 
