@@ -11,6 +11,7 @@ public class SettingCommand {
   private final int BANK = 1;
   private final int CREDIT = 2;
   Object[] settings = {new ArrayList(), new ArrayList(), new ArrayList()};
+  private boolean settingDone = true;
 
   public void executeSettingCommand(String subTitle) {
 
@@ -35,32 +36,25 @@ public class SettingCommand {
   }
 
   public void createSetting() {
-    Cash cash = new Cash();
-    System.out.println("현금");
-    cash.setCuurentAmount(Prompt.inputInt("잔액?"));
-    ((ArrayList) settings[CASH]).add(cash);
-
-    while (true) {
-      System.out.println("통장");
-      String reply = Prompt.input("계좌를 추가 하시겠습니까(Y/N)?");
-      if (!reply.equalsIgnoreCase("y")) {
-        break;
-      }
+    if (settingDone == true) {
+      Cash cash = new Cash();
+      System.out.println("현금");
+      cash.setCuurentAmount(Prompt.inputInt("잔액?"));
+      ((ArrayList) settings[CASH]).add(cash);
+      
       BankAccount bankAccount = new BankAccount();
+      System.out.println("통장");
       bankAccount.setBankName(Prompt.input("은행명?"));
       bankAccount.setDepositAmount(Prompt.inputInt("잔액?"));
       ((ArrayList) settings[BANK]).add(bankAccount);
-    }
 
-    while (true) {
-      System.out.println("신용카드");
-      String reply = Prompt.input("신용카드를 추가 하시겠습니까(Y/N)?");
-      if (!reply.equalsIgnoreCase("y")) {
-        break;
-      }
       CreditCard creditCard = new CreditCard();
+      System.out.println("신용카드");
       creditCard.setCardName(Prompt.input("카드사명?"));
       ((ArrayList) settings[CREDIT]).add(creditCard);
+      settingDone = false;
+    } else {
+      System.out.println("이미 계정이 생성되어 있습니다.");
     }
   }
 
