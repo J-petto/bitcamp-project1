@@ -13,6 +13,11 @@ public class InformCommand {
   ArrayList outcomeList = new ArrayList();
   ArrayList totalList = new ArrayList();
 
+  String ansiBlue = "\033[94m";
+  String ansiRed = "\033[91m";
+  String ansiEnd = "\033[0m";
+  String dotCode = "\u25AE";
+
   public InformCommand(ArrayList incomeList, ArrayList outcomeList) {
     this.incomeList = incomeList;
     this.outcomeList = outcomeList;
@@ -53,20 +58,32 @@ public class InformCommand {
     int outcomeTotal = allSum(false);
     int total = incomeTotal - outcomeTotal;
 
-    System.out.printf("%d %d %d\n", incomeTotal, outcomeTotal, total);
     System.out.printf("총 수입 : %d원 ", incomeTotal);
-    for (int i = 0; i < (incomeTotal / 100); i++) {
-      System.out.print("\u25AE" + " ");
+    for (int i = 0; i < percent(incomeTotal); i++) {
+      System.out.printf("%s%s%s", ansiBlue, dotCode, ansiEnd);
     }
     System.out.println();
     System.out.printf("총 지출 : %d원 ", outcomeTotal);
-    for (int i = 0; i < (outcomeTotal / 100); i++) {
-      System.out.print("\u25A0");
+    for (int i = 0; i < percent(outcomeTotal); i++) {
+      System.out.printf("%s%s%s", ansiRed, dotCode, ansiEnd);
     }
-    System.out.printf("총계 : %d원", total);
-    for (int i = 0; i < (total / 100); i++) {
-      System.out.print("\u25A0");
+    System.out.println();
+    System.out.printf("총계 : %d원 ", total);
+    for (int i = 0; i < percent(Math.abs(total)); i++) {
+      if(total < 0){
+        System.out.printf("%s%s%s", ansiRed, dotCode, ansiEnd);
+      }else {
+        System.out.printf("%s%s%s", ansiBlue, dotCode, ansiEnd);
+      }
     }
+    System.out.println();
+  }
+
+  private int percent(int value){
+    while (value > 100){
+      value = value / 10;
+    }
+    return value;
   }
 
   // true -> income 비용 모두 더한 값 반환
