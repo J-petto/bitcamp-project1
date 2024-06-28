@@ -1,7 +1,6 @@
 package bitcamp.project1.command;
 
 import bitcamp.project1.Prompt.Prompt;
-import bitcamp.project1.util.ArrayList;
 import bitcamp.project1.vo.BankAccount;
 
 public class SettingCommand {
@@ -21,9 +20,6 @@ public class SettingCommand {
         break;
       case "목록":
         listISetting();
-        break;
-      case "조회":
-        searchSetting();
         break;
       case "변경":
         updateSetting();
@@ -69,29 +65,26 @@ public class SettingCommand {
 
   public void listISetting() {
     System.out.println("구분 상세내용 금액");
-    for (Object obj : totalCash.toArray()) {
-      BankAccount cash = (BankAccount) obj;
-      System.out.printf("%s %s %d\n", cash.getBankName(), cash.getDepositAmount());
+    for (Object obj : userSettingList) {
+      BankAccount count = (BankAccount) obj;
+      System.out.printf("%s %d\n", count.getBankName(), count.getDepositAmount());
     }
-
   }
 
-  public void printList(ArrayList arr) {
-    for (Object obj : arr.toArray()) {
-
-    }
 
   public void updateSetting() {
     String command = Prompt.input("보유 현금을 수정하시겠습니까?(Y/N)");
-    if(command.equalsIgnoreCase("Y")){
+    if (command.equalsIgnoreCase("Y")) {
 
     }
     command = Prompt.input("보유 통장을 수정하시겠습니까?(Y/N)");
-    if(command.equalsIgnoreCase("Y")){
+    if (command.equalsIgnoreCase("Y")) {
       int cash = Prompt.inputInt("수정 현금?");
     }
   }
-  public void deleteSetting() {}
+
+  public void deleteSetting() {
+  }
 
   public Object[] getUserSettingList() {
     return userSettingList;
