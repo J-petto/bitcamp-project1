@@ -30,11 +30,11 @@ public class OutcomeCommand {
   }
 
   private void addUser() {
-    Outcome outcome = new Outcome();
-    outcome.setNo(Outcome.getSeqNo());
+    Income outcome = new Income();
+    outcome.setNo(Income.getSeqNo());
     outcome.setDate(Prompt.inputDate("지출일(yyyy-MM-dd)?"));
     outcome.setAmount(Prompt.inputInt("지출금액?"));
-    outcome.setAccountType(Prompt.inputInt("결제방법(현금:0,카드:1)?"));
+    outcome.setAccount(Prompt.input("결제방법(현금:0,카드:1)?"));
     outcome.setCategory(Prompt.input("지출종류?"));
     outcomeList.add(outcome);
   }
