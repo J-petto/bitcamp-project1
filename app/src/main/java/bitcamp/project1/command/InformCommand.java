@@ -23,6 +23,7 @@ public class InformCommand {
         viewTotal();
         break;
       case "일자별 수입 지출":
+        System.out.println(Arrays.toString(uniqueList()));
         viewDate();
         break;
       case "항목별 수입 지출":
@@ -55,6 +56,8 @@ public class InformCommand {
     System.out.printf("%d %d %d\n", incomeTotal, outcomeTotal, total);
   }
 
+  // true -> income 비용 모두 더한 값 반환
+  // false -> outcome 비용 모두 더한 값 반환
   private int allSum(boolean inOut) {
     int sum = 0;
 
@@ -123,6 +126,7 @@ public class InformCommand {
     return result;
   }
 
+  // 모든 데이터의 Date 정렬 코드
   private Object[] uniqueList() {
     HashSet<LocalDate> set = new HashSet<>();
     for (int i = 0; i < outcomeList.size(); i++) {
