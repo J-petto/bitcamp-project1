@@ -55,6 +55,19 @@ public class InformCommand {
     int total = incomeTotal - outcomeTotal;
 
     System.out.printf("%d %d %d\n", incomeTotal, outcomeTotal, total);
+    System.out.printf("총 수입 : %d원 ", incomeTotal);
+    for (int i = 0; i < (incomeTotal / 100); i++) {
+      System.out.print("\u25AE" + " ");
+    }
+    System.out.println();
+    System.out.printf("총 지출 : %d원 ", outcomeTotal);
+    for (int i = 0; i < (outcomeTotal / 100); i++) {
+      System.out.print("\u25A0");
+    }
+    System.out.printf("총계 : %d원", total);
+    for (int i = 0; i < (total / 100); i++) {
+      System.out.print("\u25A0");
+    }
   }
 
   // true -> income 비용 모두 더한 값 반환

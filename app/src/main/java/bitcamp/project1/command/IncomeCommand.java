@@ -4,6 +4,9 @@ import bitcamp.project1.Prompt.Prompt;
 import bitcamp.project1.util.ArrayList;
 import bitcamp.project1.vo.Income;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class IncomeCommand {
     private final int PROCESS_LIST = 1;
     private final int PROCESS_UPDATE = 2;
@@ -13,6 +16,37 @@ public class IncomeCommand {
     private final int CASH = 1;
 
     ArrayList incomeList = new ArrayList();
+
+    public void autoIncomeData(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        Income income = new Income();
+        income.setKindOfCome("입금");
+        income.setDate(LocalDate.parse("2024-06-27"));
+        income.setCategory("월급");
+        income.setAccount("현금");
+        income.setAmount(500);
+        income.setNo(Income.getSeqNo());
+        incomeList.add(income);
+
+        Income income1 = new Income();
+        income1.setKindOfCome("입금");
+        income1.setDate(LocalDate.parse("2024-06-28"));
+        income1.setCategory("용돈");
+        income1.setAccount("현금");
+        income1.setAmount(1500);
+        income1.setNo(Income.getSeqNo());
+        incomeList.add(income1);
+
+        Income income2 = new Income();
+        income2.setKindOfCome("입금");
+        income2.setDate(LocalDate.parse("2024-06-28"));
+        income2.setCategory("월급");
+        income2.setAccount("현금");
+        income2.setAmount(300);
+        income2.setNo(Income.getSeqNo());
+        incomeList.add(income2);
+    }
 
     public void executeIncomeCommand(String subTitle) {
         switch (subTitle) {
