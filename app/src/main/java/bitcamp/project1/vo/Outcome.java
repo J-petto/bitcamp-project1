@@ -26,7 +26,7 @@ public class Outcome {
     if (o == null || getClass() != o.getClass())
       return false;
     Outcome outcome = (Outcome) o;
-    return no == outcome.no;
+    return (no == outcome.no) || (date == outcome.date);
   }
 
   @Override
