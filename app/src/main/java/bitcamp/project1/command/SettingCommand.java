@@ -1,7 +1,13 @@
 package bitcamp.project1.command;
 
+import bitcamp.project1.vo.BankAccount;
+import bitcamp.project1.vo.Cash;
+import bitcamp.project1.vo.CreditCard;
+
 public class SettingCommand {
   public void executeSettingCommand(String subTitle) {
+
+    Object[] settings = {new Cash(), new BankAccount(), new CreditCard()};
     switch (subTitle) {
       case "등록":
         createSetting();
@@ -20,5 +26,20 @@ public class SettingCommand {
         break;
       default:
     }
+  }
+
+  public void createSetting() {
+  }
+
+  public void listISetting() {
+  }
+
+  public void searchSetting() {
+  }
+
+  public void updateSetting() {
+  }
+
+  public void deleteSetting() {
   }
 }
