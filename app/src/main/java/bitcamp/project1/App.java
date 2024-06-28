@@ -7,45 +7,20 @@ import bitcamp.project1.command.OutcomeCommand;
 
 public class App {
   static String[] mainMenus = new String[] {"수입입력", "지출입력", "수입지출목록", "종료"};
-  static String[][] subMenus = {{"등록", "목록", "조회", "변경", "삭제"},
-                                {"등록", "목록", "조회", "변경", "삭제"},
-                                {"총 지출 수입", "일자별 수입 지출", "항목별 수입 지출"}};
+  static String[][] subMenus = {{"등록", "목록", "조회", "변경", "삭제"}, {"등록", "목록", "조회", "변경", "삭제"},
+      {"총 지출 수입", "일자별 수입 지출", "항목별 수입 지출"}};
 
   IncomeCommand incomeCommand = new IncomeCommand();
   OutcomeCommand outcomeCommand = new OutcomeCommand();
-  InformCommand informCommand = new InformCommand(incomeCommand.getIncomeList(), outcomeCommand.getOutcomeList());
+  InformCommand informCommand =
+      new InformCommand(incomeCommand.getIncomeList(), outcomeCommand.getOutcomeList());
 
   public static void main(String[] args) {
     App app = new App();
     app.execute();
   }
-  void execute(){
-    String command;
-    printMainMenu();
-    while (true){
-      try {
-        command = Prompt.input("메인> ");
-        if (command.equals("menu")) {
-          printMainMenu();
-          continue;
-        }
-        int menuNo = Integer.parseInt(command);
-        String menuTitle = getMenuTitle(menuNo, mainMenus);
-        if (menuTitle == null) {
-          System.out.println("유효한 메뉴 번호가 아닙니다.");
-        } else if (menuTitle.equals("종료")) {
-          break;
-        } else {
-          processSubMenu(menuTitle, subMenus[menuNo - 1]);
-        }
-      } catch (NumberFormatException ex) {
-        System.out.println("숫자로 메뉴 번호를 입력하세요.");
-      }
-    }
-    System.out.println("종료합니다.");
-    Prompt.close();
-  }
-  static void printMainMenu(){
+
+  static void printMainMenu() {
     String boldAnsi = "\033[1m";
     String redAnsi = "\033[31m";
     String resetAnsi = "\033[0m";
@@ -77,6 +52,33 @@ public class App {
 
   static String getMenuTitle(int menuNo, String[] menus) {
     return isValidateMenu(menuNo, menus) ? menus[menuNo - 1] : null;
+  }
+
+  void execute() {
+    String command;
+    printMainMenu();
+    while (true) {
+      try {
+        command = Prompt.input("메인> ");
+        if (command.equals("menu")) {
+          printMainMenu();
+          continue;
+        }
+        int menuNo = Integer.parseInt(command);
+        String menuTitle = getMenuTitle(menuNo, mainMenus);
+        if (menuTitle == null) {
+          System.out.println("유효한 메뉴 번호가 아닙니다.");
+        } else if (menuTitle.equals("종료")) {
+          break;
+        } else {
+          processSubMenu(menuTitle, subMenus[menuNo - 1]);
+        }
+      } catch (NumberFormatException ex) {
+        System.out.println("숫자로 메뉴 번호를 입력하세요.");
+      }
+    }
+    System.out.println("종료합니다.");
+    Prompt.close();
   }
 
   void processSubMenu(String menuTitle, String[] menus) {
