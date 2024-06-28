@@ -44,23 +44,12 @@ public class SettingCommand {
 
       BankAccount bankAccount = new BankAccount();
       System.out.println("통장");
-      String reply = Prompt.input("계좌를 추가 하시겠습니까(Y/N)?");
-      if (!reply.equalsIgnoreCase("y")) {
-        break;
-      }
-      BankAccount bankAccount = new BankAccount();
       bankAccount.setBankName(Prompt.input("은행명?"));
       bankAccount.setDepositAmount(Prompt.inputInt("잔액?"));
       ((ArrayList) settings[BANK]).add(bankAccount);
-    }
 
       CreditCard creditCard = new CreditCard();
       System.out.println("신용카드");
-      String reply = Prompt.input("신용카드를 추가 하시겠습니까(Y/N)?");
-      if (!reply.equalsIgnoreCase("y")) {
-        break;
-      }
-      CreditCard creditCard = new CreditCard();
       creditCard.setCardName(Prompt.input("카드사명?"));
       ((ArrayList) settings[CREDIT]).add(creditCard);
       settingDone = false;
@@ -77,21 +66,6 @@ public class SettingCommand {
   }
 
   public void updateSetting() {
-    ArrayList cashArr = (ArrayList) settings[CASH];
-    for(Object obj: cashArr.toArray()){
-
-      System.out.printf("%d. %s", obj);
-    }
-    while (true){
-      String reply = Prompt.input("현금 목록을 수정하시겠습니까?(Y/N)");
-      if(reply.equalsIgnoreCase("n")){
-        break;
-      } else if (reply.equalsIgnoreCase("y")) {
-
-      }
-
-    }
-
   }
 
   public void deleteSetting() {
