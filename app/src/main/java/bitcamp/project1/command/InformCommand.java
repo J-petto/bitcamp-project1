@@ -29,10 +29,10 @@ public class InformCommand {
         viewTotal();
         break;
       case "일자별 수입 지출":
-        viewDate();
+        viewDate(subTitle);
         break;
       case "항목별 수입 지출":
-        viewCategory();
+        viewCategory(subTitle);
         break;
     }
   }
@@ -109,8 +109,8 @@ public class InformCommand {
   }
 
   // 2. 일자별 수입 지출 목록
-  private void viewDate() {
-    Object[] uniqueDate = uniqueDate(union());
+  private void viewDate(String subTitle) {
+    Object[] uniqueDate = uniqueList(union(), subTitle);
     System.out.println("날짜 수입 지출 총계");
     for (Object obj : uniqueDate) {
       LocalDate date = (LocalDate) obj;
@@ -144,8 +144,8 @@ public class InformCommand {
   }
 
   //3. 품목별 수입 지출 목록
-  private void viewCategory() {
-    Object[] uniqueIncome = uniqueList(incomeList);
+  private void viewCategory(String subTitle) {
+    Object[] uniqueIncome = uniqueList(incomeList, subTitle);
     int incomeTotal = allSum(true);
     int outcomeTotal = allSum(false);
 
@@ -171,7 +171,7 @@ public class InformCommand {
       System.out.println();
     }
 
-    Object[] uniqueOutcome = uniqueList(outcomeList);
+    Object[] uniqueOutcome = uniqueList(incomeList, subTitle);
     System.out.println("---[지출]-------------------");
     System.out.printf("총 지출 : %d ", outcomeTotal);
     for (int i = 0; i < percent(outcomeTotal); i++) {
@@ -208,23 +208,15 @@ public class InformCommand {
     return result;
   }
 
-  private Object[] uniqueDate(ArrayList list) {
-    HashSet<LocalDate> set = new HashSet<>();
+  private Object[] uniqueList(ArrayList list, String subTitle) {
+    HashSet<Object> set = new HashSet<>();
     for (Object obj : list.toArray()) {
       Finance value = (Finance) obj;
-      set.add(value.getDate());
-    }
-
-    Object[] arr = set.toArray();
-    Arrays.sort(arr);
-    return arr;
-  }
-
-  private Object[] uniqueList(ArrayList list) {
-    HashSet<String> set = new HashSet<>();
-    for (Object obj : list.toArray()) {
-      Finance value = (Finance) obj;
-      set.add(value.getCategory());
+      if (subTitle.equals("일자별 수입 지출")) {
+        set.add(value.getDate());
+      } else if (subTitle.equals("항목별 수입 지출")) {
+        set.add(value.getCategory());
+      }
     }
     Object[] arr = set.toArray();
     Arrays.sort(arr);
