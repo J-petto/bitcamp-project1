@@ -13,11 +13,6 @@ public class InformCommand {
   ArrayList outcomeList = new ArrayList();
   ArrayList totalList = new ArrayList();
 
-  String ansiBlue = "\033[94m";
-  String ansiRed = "\033[91m";
-  String ansiEnd = "\033[0m";
-  String dotCode = "\u25AE";
-
   public InformCommand(ArrayList incomeList, ArrayList outcomeList) {
     this.incomeList = incomeList;
     this.outcomeList = outcomeList;
@@ -57,36 +52,43 @@ public class InformCommand {
     int total = incomeTotal - outcomeTotal;
 
     System.out.printf("총 수입 :  %d원 ", incomeTotal);
-    for (int i = 0; i < percent(incomeTotal); i++) {
-      System.out.printf("%s%s%s", ansiBlue, dotCode, ansiEnd);
-    }
-    System.out.println();
+    printGraph(0 ,incomeTotal, total);
+
     System.out.printf("총 지출 : -%d원 ", outcomeTotal);
-    for (int i = 0; i < percent(outcomeTotal); i++) {
-      System.out.printf("%s%s%s", ansiRed, dotCode, ansiEnd);
-    }
-    System.out.println();
+    printGraph(1 ,outcomeTotal, total);
+
     System.out.printf("총   계 : %d원 ", total);
-    for (int i = 0; i < percent(Math.abs(total)); i++) {
-      if(total < 0){
-        System.out.printf("%s%s%s", ansiRed, dotCode, ansiEnd);
-      }else {
+    printGraph(2 ,Math.abs(total), total);
+  }
+
+  public void printGraph(int label, int value, int total){
+    String ansiBlue = "\033[94m";
+    String ansiRed = "\033[91m";
+    String ansiEnd = "\033[0m";
+    String dotCode = "\u25AE";
+
+    int barLength = 30;
+    double ratio = total == 0 ? 0 : (double) value / Math.abs(total);
+    int filledLength = (int) (ratio * barLength);
+
+    if(label == 0){
+      for(int i = 0; i < filledLength; i++){
         System.out.printf("%s%s%s", ansiBlue, dotCode, ansiEnd);
+      }
+    }else if(label == 1){
+      for(int i = 0; i < filledLength; i++){
+        System.out.printf("%s%s%s", ansiRed, dotCode, ansiEnd);
+      }
+    }else {
+      for (int i = 0; i < filledLength; i++) {
+        if (total < 0) {
+          System.out.printf("%s%s%s", ansiRed, dotCode, ansiEnd);
+        } else {
+          System.out.printf("%s%s%s", ansiBlue, dotCode, ansiEnd);
+        }
       }
     }
     System.out.println();
-  }
-
-  public void Graph(int label, int value, int total){
-    int barLength = 100;
-    int filledLength = value / total * barLength;
-  }
-
-  private int percent(int value){
-    while (value > 100){
-      value = value / 100;
-    }
-    return value;
   }
 
   // true -> income 비용 모두 더한 값 반환
@@ -150,11 +152,8 @@ public class InformCommand {
     int outcomeTotal = allSum(false);
 
     System.out.println("---[수입]-------------------");
-    System.out.printf("총 수입 : %d ", incomeTotal);
-    for (int i = 0; i < percent(incomeTotal); i++) {
-      System.out.printf("%s%s%s", ansiBlue, dotCode, ansiEnd);
-    }
-    System.out.println();
+    System.out.printf("총 수입: %d ", incomeTotal);
+    printGraph(0, Math.abs(incomeTotal),incomeTotal);
     for (Object obj : uniqueIncome) {
       String car = (String) obj;
       int total = 0;
@@ -165,19 +164,13 @@ public class InformCommand {
         }
       }
       System.out.printf("%s: %d ", obj.toString(), total);
-      for (int i = 0; i < percent(total); i++) {
-        System.out.printf("%s%s%s", ansiBlue, dotCode, ansiEnd);
-      }
-      System.out.println();
+      printGraph(0, total, incomeTotal);
     }
 
     Object[] uniqueOutcome = uniqueList(outcomeList);
     System.out.println("---[지출]-------------------");
-    System.out.printf("총 지출 : %d ", outcomeTotal);
-    for (int i = 0; i < percent(outcomeTotal); i++) {
-      System.out.printf("%s%s%s", ansiRed, dotCode, ansiEnd);
-    }
-    System.out.println();
+    System.out.printf("총 지출: %d ", outcomeTotal);
+    printGraph(1, Math.abs(outcomeTotal),outcomeTotal);
     for (Object obj : uniqueOutcome) {
       String car = (String) obj;
       int total = 0;
@@ -188,10 +181,7 @@ public class InformCommand {
         }
       }
       System.out.printf("%s: %d ", obj.toString(), total);
-      for (int i = 0; i < percent(total); i++) {
-        System.out.printf("%s%s%s", ansiRed, dotCode, ansiEnd);
-      }
-      System.out.println();
+      printGraph(1, Math.abs(total),outcomeTotal);
     }
   }
 
