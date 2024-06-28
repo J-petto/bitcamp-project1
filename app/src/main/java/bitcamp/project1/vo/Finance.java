@@ -3,7 +3,7 @@ package bitcamp.project1.vo;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Income {
+public class Finance {
   private static int seqNo;
   private static int incomeNo;
   private static int outcomeNo;
@@ -16,28 +16,30 @@ public class Income {
   private String account;
   private String category;
 
+  public Finance() {
+  }
+
+  public Finance(int no) {
+    this.no = no;
+  }
+
+  public static int getSeqNo() {
+    return seqNo++;
+  }
+
   @Override
   public boolean equals(Object object) {
-    if (this == object) return true;
-    if (object == null || getClass() != object.getClass()) return false;
-    Income income = (Income) object;
+    if (this == object)
+      return true;
+    if (object == null || getClass() != object.getClass())
+      return false;
+    Finance income = (Finance) object;
     return no == income.no;
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(no, date);
-  }
-
-  public Income(){
-  }
-
-  public Income(int no){
-    this.no = no;
-  }
-
-  public static int getSeqNo() {
-    return seqNo++;
   }
 
   public int getNo() {

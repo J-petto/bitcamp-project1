@@ -1,7 +1,7 @@
 package bitcamp.project1.command;
 
 import bitcamp.project1.util.ArrayList;
-import bitcamp.project1.vo.Income;
+import bitcamp.project1.vo.Finance;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -68,22 +68,22 @@ public class InformCommand {
     System.out.println();
     System.out.printf("총   계 : %d원 ", total);
     for (int i = 0; i < percent(Math.abs(total)); i++) {
-      if(total < 0){
+      if (total < 0) {
         System.out.printf("%s%s%s", ansiRed, dotCode, ansiEnd);
-      }else {
+      } else {
         System.out.printf("%s%s%s", ansiBlue, dotCode, ansiEnd);
       }
     }
     System.out.println();
   }
 
-  public void Graph(int label, int value, int total){
+  public void Graph(int label, int value, int total) {
     int barLength = 100;
     int filledLength = value / total * barLength;
   }
 
-  private int percent(int value){
-    while (value > 100){
+  private int percent(int value) {
+    while (value > 100) {
       value = value / 100;
     }
     return value;
@@ -96,12 +96,12 @@ public class InformCommand {
 
     if (inOut) {
       for (Object obj : incomeList.toArray()) {
-        Income plusIncome = (Income) obj;
+        Finance plusIncome = (Finance) obj;
         sum += plusIncome.getAmount();
       }
     } else {
       for (Object obj : outcomeList.toArray()) {
-        Income plusOutcome = (Income) obj;
+        Finance plusOutcome = (Finance) obj;
         sum += plusOutcome.getAmount();
       }
     }
@@ -116,13 +116,13 @@ public class InformCommand {
       LocalDate date = (LocalDate) obj;
       int totalIncome = 0, totalOutcome = 0;
       for (int i = 0; i < incomeList.size(); i++) {
-        Income income = (Income) incomeList.get(i);
+        Finance income = (Finance) incomeList.get(i);
         if (date.equals(income.getDate())) {
           totalIncome += income.getAmount();
         }
       }
       for (int i = 0; i < outcomeList.size(); i++) {
-        Income outcome = (Income) outcomeList.get(i);
+        Finance outcome = (Finance) outcomeList.get(i);
         if (date.equals(outcome.getDate())) {
           totalOutcome += outcome.getAmount();
         }
@@ -134,11 +134,11 @@ public class InformCommand {
 
   private void totalArray() {
     for (Object obj : incomeList.toArray()) {
-      Income addIncome = (Income) obj;
+      Finance addIncome = (Finance) obj;
       totalList.add(addIncome);
     }
     for (Object obj : outcomeList.toArray()) {
-      Income addOutcome = (Income) obj;
+      Finance addOutcome = (Finance) obj;
       totalList.add(addOutcome);
     }
   }
@@ -159,7 +159,7 @@ public class InformCommand {
       String car = (String) obj;
       int total = 0;
       for (Object value : incomeList.toArray()) {
-        Income income = (Income) value;
+        Finance income = (Finance) value;
         if (car.equals(income.getCategory())) {
           total += income.getAmount();
         }
@@ -182,7 +182,7 @@ public class InformCommand {
       String car = (String) obj;
       int total = 0;
       for (Object value : outcomeList.toArray()) {
-        Income income = (Income) value;
+        Finance income = (Finance) value;
         if (car.equals(income.getCategory())) {
           total += income.getAmount();
         }
@@ -211,7 +211,7 @@ public class InformCommand {
   private Object[] uniqueDate(ArrayList list) {
     HashSet<LocalDate> set = new HashSet<>();
     for (Object obj : list.toArray()) {
-      Income value = (Income) obj;
+      Finance value = (Finance) obj;
       set.add(value.getDate());
     }
 
@@ -223,7 +223,7 @@ public class InformCommand {
   private Object[] uniqueList(ArrayList list) {
     HashSet<String> set = new HashSet<>();
     for (Object obj : list.toArray()) {
-      Income value = (Income) obj;
+      Finance value = (Finance) obj;
       set.add(value.getCategory());
     }
     Object[] arr = set.toArray();
