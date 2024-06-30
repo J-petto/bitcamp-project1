@@ -35,10 +35,7 @@ public class InformCommand {
         viewCategory(subTitle);
         break;
       case "자산별 수입 지출":
-        viewAsset(subTitle);
-        break;
-      case "자산별 잔고 현황":
-        viewAcount(subTitle);
+        viewAsset();
         break;
     }
   }
@@ -117,8 +114,8 @@ public class InformCommand {
     }
   }
 
-  private void viewAsset(String subTitle) {
-    System.out.println("구분 수입 지출 총계");
+  private void viewAsset() {
+    System.out.println("구분 잔고 수입 지출 총계");
     for (Object obj : assetList) {
       Wallet wallet = (Wallet) obj;
       if (wallet.getAssetType() == null) {
@@ -137,16 +134,11 @@ public class InformCommand {
           totalOutcome += outcome.getAmount();
         }
       }
-      System.out.printf("%s, %d, %d \n", wallet.getAssetType(), totalIncome, totalOutcome);
+      System.out.printf("%s, %d, %d, %d, %d \n", wallet.getAssetType(), wallet.getDepositAmount(),
+          totalIncome, totalOutcome, wallet.getDepositAmount() + totalIncome - totalOutcome);
     }
 
   }
-
-  private void viewAcount(String subTitle) {
-
-  }
-
-
 
   public void printGraph(int label, int value, int total) {
     String ansiBlue = "\033[94m";
@@ -212,10 +204,6 @@ public class InformCommand {
     return sum;
   }
 
-  // 2. 일자별 수입 지출 목록
-
-  //3. 품목별 수입 지출 목록
-
   private ArrayList union() {
     int incomeSize = incomeList.size();
     int outcomeSize = outcomeList.size();
@@ -233,6 +221,8 @@ public class InformCommand {
     HashSet<Object> set = new HashSet<>();
     for (Object obj : list.toArray()) {
       Finance value = (Finance) obj;
+      if (value == null)
+        return null;
       if (subTitle.equals("일자별 수입 지출")) {
         set.add(value.getDate());
       } else if (subTitle.equals("항목별 수입 지출")) {

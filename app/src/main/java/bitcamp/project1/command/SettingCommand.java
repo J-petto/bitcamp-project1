@@ -114,8 +114,7 @@ public class SettingCommand {
         System.out.println("수정했습니다.");
         break;
       } else if (command.equalsIgnoreCase("N")) {
-        System.out.printf("기존 통장을 유지했습니다(%s. %d)\n", bankAccount.getAssetType(),
-            bankAccount.getDepositAmount());
+        System.out.printf("기존 카드를 유지했습니다(%s)\n", creditCard.getAssetType());
         break;
       } else {
         System.out.println("y 나 n 만 입력해주세요.");
