@@ -5,6 +5,8 @@ import bitcamp.project1.util.ArrayList;
 import bitcamp.project1.vo.Finance;
 import bitcamp.project1.vo.Wallet;
 
+import java.time.LocalDate;
+
 public class IncomeCommand {
   private final int PROCESS_LIST = 0;
   private final int PROCESS_SEARCH = 1;
@@ -12,11 +14,30 @@ public class IncomeCommand {
   private final int PROCESS_DELETE = 3;
 
   ArrayList incomeList = new ArrayList();
-  SettingCommand settingCommand = new SettingCommand();
   Object[] wallet;
 
   public IncomeCommand(Object[] list){
     wallet = list;
+  }
+
+  public void autoIncomeData() {
+    Finance income = new Finance();
+    income.setKindOfCome("입금");
+    income.setDate(LocalDate.parse("2024-06-27"));
+    income.setCategory("월급");
+    income.setAccount(1);
+    income.setAmount(50000);
+    income.setNo(Finance.getSeqNo());
+    incomeList.add(income);
+
+    Finance income1 = new Finance();
+    income1.setKindOfCome("입금");
+    income1.setDate(LocalDate.parse("2024-06-28"));
+    income1.setCategory("용돈");
+    income1.setAccount(0);
+    income1.setAmount(3000);
+    income1.setNo(Finance.getSeqNo());
+    incomeList.add(income1);
   }
 
   public void executeIncomeCommand(String subTitle) {

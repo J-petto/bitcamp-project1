@@ -5,6 +5,8 @@ import bitcamp.project1.util.ArrayList;
 import bitcamp.project1.vo.Finance;
 import bitcamp.project1.vo.Wallet;
 
+import java.time.LocalDate;
+
 public class OutcomeCommand {
   private final int PROCESS_LIST = 0;
   private final int PROCESS_SEARCH = 1;
@@ -17,35 +19,34 @@ public class OutcomeCommand {
   public OutcomeCommand(Object[] list) {
     this.wallet = list;
   }
-  //  public void autoOutcomeData() {
-  //    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-  //    Finance outcome = new Finance();
-  //    outcome.setKindOfCome("출금");
-  //    outcome.setDate(LocalDate.parse("2024-06-27"));
-  //    outcome.setCategory("식비");
-  //    outcome.setAccount("현금");
-  //    outcome.setAmount(300);
-  //    outcome.setNo(Finance.getSeqNo());
-  //    outcomeList.add(outcome);
-  //
-  //    Finance outcome1 = new Finance();
-  //    outcome1.setKindOfCome("출금");
-  //    outcome1.setDate(LocalDate.parse("2024-06-28"));
-  //    outcome1.setCategory("서적");
-  //    outcome1.setAccount("현금");
-  //    outcome1.setAmount(700);
-  //    outcome1.setNo(Finance.getSeqNo());
-  //    outcomeList.add(outcome1);
-  //
-  //    Finance outcome2 = new Finance();
-  //    outcome2.setKindOfCome("출금");
-  //    outcome2.setDate(LocalDate.parse("2024-06-28"));
-  //    outcome2.setCategory("아이패드");
-  //    outcome2.setAccount("카드");
-  //    outcome2.setAmount(5000);
-  //    outcome2.setNo(Finance.getSeqNo());
-  //    outcomeList.add(outcome2);
-  //  }
+    public void autoOutcomeData() {
+      Finance outcome = new Finance();
+      outcome.setKindOfCome("출금");
+      outcome.setDate(LocalDate.parse("2024-06-27"));
+      outcome.setCategory("식비");
+      outcome.setAccount(0);
+      outcome.setAmount(300);
+      outcome.setNo(Finance.getSeqNo());
+      outcomeList.add(outcome);
+
+      Finance outcome1 = new Finance();
+      outcome1.setKindOfCome("출금");
+      outcome1.setDate(LocalDate.parse("2024-06-28"));
+      outcome1.setCategory("서적");
+      outcome1.setAccount(1);
+      outcome1.setAmount(700);
+      outcome1.setNo(Finance.getSeqNo());
+      outcomeList.add(outcome1);
+
+      Finance outcome2 = new Finance();
+      outcome2.setKindOfCome("출금");
+      outcome2.setDate(LocalDate.parse("2024-06-28"));
+      outcome2.setCategory("아이패드");
+      outcome2.setAccount(2);
+      outcome2.setAmount(5000);
+      outcome2.setNo(Finance.getSeqNo());
+      outcomeList.add(outcome2);
+    }
 
   public void executeOutcomeCommand(String command) {
     System.out.printf("[%s]\n", command);

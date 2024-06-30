@@ -12,8 +12,25 @@ public class SettingCommand {
 
   private boolean settingDone = true;
 
-  public void executeSettingCommand(String subTitle) {
+  public void autoSettingCommand(){
+    Wallet cash = new Wallet();
+    cash.setAssetType("현금");
+    cash.setDepositAmount(3000);
+    userSettingList[CASH] = cash;
 
+    Wallet bank = new Wallet();
+    bank.setAssetType("하나은행");
+    bank.setDepositAmount(4000);
+    userSettingList[BANK] = bank;
+
+    Wallet card = new Wallet();
+    card.setAssetType("신한카드");
+    card.setDepositAmount(2000);
+    userSettingList[CARD] = card;
+    settingDone = false;
+  }
+
+  public void executeSettingCommand(String subTitle) {
     switch (subTitle) {
       case "등록":
         createSetting();
