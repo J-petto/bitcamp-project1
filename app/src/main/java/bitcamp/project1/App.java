@@ -9,13 +9,15 @@ import bitcamp.project1.command.SettingCommand;
 public class App {
   static String[] mainMenus = new String[] {"수입입력", "지출입력", "수입지출목록", "설정", "종료"};
   static String[][] subMenus = {{"등록", "목록", "조회", "변경", "삭제"}, {"등록", "목록", "조회", "변경", "삭제"},
-      {"총 지출 수입", "일자별 수입 지출", "항목별 수입 지출"}, {"등록", "목록", "조회", "변경", "삭제"}};
+      {"총 지출 수입", "일자별 수입 지출", "항목별 수입 지출", "자산별 수입 지출", "자산별 잔고 현황"},
+      {"등록", "목록", "조회", "변경", "삭제"}};
 
   SettingCommand settingCommand = new SettingCommand();
   IncomeCommand incomeCommand = new IncomeCommand();
   OutcomeCommand outcomeCommand = new OutcomeCommand(settingCommand.getUserSettingList());
   InformCommand informCommand =
-      new InformCommand(incomeCommand.getIncomeList(), outcomeCommand.getOutcomeList());
+      new InformCommand(incomeCommand.getIncomeList(), outcomeCommand.getOutcomeList(),
+          settingCommand.getUserSettingList());
 
   public static void main(String[] args) {
     App app = new App();

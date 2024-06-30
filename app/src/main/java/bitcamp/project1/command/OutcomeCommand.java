@@ -2,8 +2,8 @@ package bitcamp.project1.command;
 
 import bitcamp.project1.Prompt.Prompt;
 import bitcamp.project1.util.ArrayList;
-import bitcamp.project1.vo.BankAccount;
 import bitcamp.project1.vo.Finance;
+import bitcamp.project1.vo.Wallet;
 
 public class OutcomeCommand {
   private final int PROCESS_LIST = 0;
@@ -99,14 +99,14 @@ public class OutcomeCommand {
     }
     System.out.printf("지출날짜 : %s\n", searchedOutcome.getDate());
     System.out.printf("지출금액 : %s\n", searchedOutcome.getAmount());
-    BankAccount account = (BankAccount) wallet[searchedOutcome.getAccount()];
-    System.out.printf("결제방법 : %s\n", account.getBankName());
+    Wallet account = (Wallet) wallet[searchedOutcome.getAccount()];
+    System.out.printf("결제방법 : %s\n", account.getAssetType());
     System.out.printf("카테고리 : %s\n", searchedOutcome.getCategory());
   }
 
   private void updateOutcome() {
     printNoList(PROCESS_UPDATE);
-    int outcomeNo = Prompt.inputInt("조회 할 지출 번호?");
+    int outcomeNo = Prompt.inputInt("변경 할 지출 번호?");
     Finance updateOutcome =
         (Finance) outcomeList.get((outcomeList.indexOf(new Finance(outcomeNo))));
     if (updateOutcome == null) {
@@ -115,8 +115,7 @@ public class OutcomeCommand {
     }
     updateOutcome.setDate(Prompt.inputDate("지출일(%s):", updateOutcome.getDate()));
     updateOutcome.setAmount(Prompt.inputInt("지출금액(%s):", updateOutcome.getAmount()));
-    BankAccount account = (BankAccount) wallet[updateOutcome.getAccount()];
-    updateOutcome.setAccount(Prompt.inputInt("결제방법(%s):", account.getBankName()));
+    setWallet(updateOutcome);
     updateOutcome.setCategory(Prompt.input("카테고리(%s):", updateOutcome.getCategory()));
     System.out.println("변경 완료했습니다.");
   }
@@ -148,17 +147,16 @@ public class OutcomeCommand {
           break;
         default:
       }
-
     }
   }
 
   private void setWallet(Finance outcome) {
     for (int i = 0; i < wallet.length; i++) {
-      BankAccount value = (BankAccount) wallet[i];
+      Wallet value = (Wallet) wallet[i];
       if (value == null) {
         continue;
       }
-      System.out.printf("%d. %s\n", i + 1, value.getBankName());
+      System.out.printf("%d. %s\n", i + 1, value.getAssetType());
     }
 
     while (true) {
@@ -166,7 +164,6 @@ public class OutcomeCommand {
       if ((no < 0 || no >= wallet.length) || wallet[no - 1] == null) {
         System.out.println("유효한 결제방법이 아닙니다.");
       } else {
-
         outcome.setAccount(no - 1);
         break;
       }

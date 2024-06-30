@@ -2,8 +2,8 @@ package bitcamp.project1.command;
 
 import bitcamp.project1.Prompt.Prompt;
 import bitcamp.project1.util.ArrayList;
-import bitcamp.project1.vo.BankAccount;
 import bitcamp.project1.vo.Finance;
+import bitcamp.project1.vo.Wallet;
 
 public class IncomeCommand {
   private final int PROCESS_LIST = 0;
@@ -147,14 +147,14 @@ public class IncomeCommand {
 
   private void setWallet(Finance income) {
     for (int i = 0; i < wallet.length; i++) {
-      BankAccount value = (BankAccount) wallet[i];
-      if(value == null){
+      Wallet value = (Wallet) wallet[i];
+      if (value == null) {
         continue;
       }
-      if(i == 2){
+      if (i == 2) {
         continue;
       }
-      System.out.printf("%s", value.getBankName());
+      System.out.printf("%s", value.getAssetType());
     }
 
     while (true) {
@@ -166,7 +166,7 @@ public class IncomeCommand {
           income.setAccount(no - 1);
           break;
         }
-      }catch (NullPointerException e){
+      } catch (NullPointerException e) {
         System.out.println("보유하지 않은 결제방법입니다.");
       }
     }

@@ -2,12 +2,12 @@ package bitcamp.project1.command;
 
 import bitcamp.project1.util.ArrayList;
 import bitcamp.project1.vo.Finance;
+import bitcamp.project1.vo.Wallet;
 
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashSet;
 
-//수정 (나중에삭제)//
 public class InformCommand {
   private final int PROGRESS_INCOME = 0;
   private final int PROGRESS_OUTCOME = 1;
@@ -15,10 +15,12 @@ public class InformCommand {
 
   ArrayList incomeList = new ArrayList();
   ArrayList outcomeList = new ArrayList();
+  Object[] assetList = new ArrayList[3];
 
-  public InformCommand(ArrayList incomeList, ArrayList outcomeList) {
+  public InformCommand(ArrayList incomeList, ArrayList outcomeList, Object[] assetList) {
     this.incomeList = incomeList;
     this.outcomeList = outcomeList;
+    this.assetList = assetList;
   }
 
   public void executeInformCommand(String subTitle) {
@@ -31,6 +33,12 @@ public class InformCommand {
         break;
       case "항목별 수입 지출":
         viewCategory(subTitle);
+        break;
+      case "자산별 수입 지출":
+        viewAsset(subTitle);
+        break;
+      case "자산별 잔고 현황":
+        viewAcount(subTitle);
         break;
     }
   }
@@ -50,6 +58,95 @@ public class InformCommand {
     System.out.printf("총   계 : %d ", total);
     printGraph(PROGRESS_TOTAL, Math.abs(total), total);
   }
+
+  private void viewDate(String subTitle) {
+    Object[] uniqueDate = uniqueList(union(), subTitle);
+    System.out.println("날짜 수입 지출 총계");
+    for (Object obj : uniqueDate) {
+      LocalDate date = (LocalDate) obj;
+      int totalIncome = 0, totalOutcome = 0;
+      for (Object in : incomeList.toArray()) {
+        Finance income = (Finance) in;
+        if (date.equals(income.getDate())) {
+          totalIncome += income.getAmount();
+        }
+      }
+      for (Object out : outcomeList.toArray()) {
+        Finance outcome = (Finance) out;
+        if (date.equals(outcome.getDate())) {
+          totalOutcome += outcome.getAmount();
+        }
+      }
+      System.out.printf("%s, %d, %d ,%d\n", date.toString(), totalIncome, totalOutcome,
+          totalIncome - totalOutcome);
+    }
+  }
+
+  private void viewCategory(String subTitle) {
+    int incomeTotal = allSum(true);
+    int outcomeTotal = allSum(false);
+
+    Object[] uniqueIncome = uniqueList(incomeList, subTitle);
+    System.out.println("[수입]----------------------");
+    printFormatted("수입총합", PROGRESS_INCOME, Math.abs(incomeTotal), incomeTotal);
+    for (Object obj : uniqueIncome) {
+      String car = (String) obj;
+      int total = 0;
+      for (Object value : incomeList.toArray()) {
+        Finance income = (Finance) value;
+        if (car.equals(income.getCategory())) {
+          total += income.getAmount();
+        }
+      }
+      printFormatted(obj.toString(), PROGRESS_INCOME, Math.abs(total), incomeTotal);
+    }
+
+    Object[] uniqueOutcome = uniqueList(outcomeList, subTitle);
+    System.out.println("[지출]----------------------");
+    printFormatted("지출총합", PROGRESS_OUTCOME, Math.abs(outcomeTotal), outcomeTotal);
+    for (Object obj : uniqueOutcome) {
+      String car = (String) obj;
+      int total = 0;
+      for (Object value : outcomeList.toArray()) {
+        Finance income = (Finance) value;
+        if (car.equals(income.getCategory())) {
+          total += income.getAmount();
+        }
+      }
+      printFormatted(obj.toString(), PROGRESS_OUTCOME, Math.abs(total), outcomeTotal);
+    }
+  }
+
+  private void viewAsset(String subTitle) {
+    System.out.println("구분 수입 지출 총계");
+    for (Object obj : assetList) {
+      Wallet wallet = (Wallet) obj;
+      if (wallet.getAssetType() == null) {
+        continue;
+      }
+      int totalIncome = 0, totalOutcome = 0;
+      for (Object in : incomeList.toArray()) {
+        Finance income = (Finance) in;
+        if (wallet.getAssetType().equals(income.getKindOfCome())) {
+          totalIncome += income.getAmount();
+        }
+      }
+      for (Object out : outcomeList.toArray()) {
+        Finance outcome = (Finance) out;
+        if (wallet.getAssetType().equals(outcome.getKindOfCome())) {
+          totalOutcome += outcome.getAmount();
+        }
+      }
+      System.out.printf("%s, %d, %d \n", wallet.getAssetType(), totalIncome, totalOutcome);
+    }
+
+  }
+
+  private void viewAcount(String subTitle) {
+
+  }
+
+
 
   public void printGraph(int label, int value, int total) {
     String ansiBlue = "\033[94m";
@@ -85,14 +182,14 @@ public class InformCommand {
   public void printFormatted(String text, int label, int value, int total) {
     String formattedValue = String.format("%,d", value);
     System.out.printf("%s", text);
-    for(int i = 0; i < 8 - text.length(); i++){
+    for (int i = 0; i < 8 - text.length(); i++) {
       System.out.print("  ");
     }
     System.out.print("|");
-    for(int i = 0; i < 10 - formattedValue.length(); i++){
+    for (int i = 0; i < 10 - formattedValue.length(); i++) {
       System.out.print(" ");
     }
-    System.out.printf("%s원 ",formattedValue);
+    System.out.printf("%s원 ", formattedValue);
     printGraph(label, value, total);
   }
 
@@ -116,64 +213,8 @@ public class InformCommand {
   }
 
   // 2. 일자별 수입 지출 목록
-  private void viewDate(String subTitle) {
-    Object[] uniqueDate = uniqueList(union(), subTitle);
-    System.out.println("날짜 수입 지출 총계");
-    for (Object obj : uniqueDate) {
-      LocalDate date = (LocalDate) obj;
-      int totalIncome = 0, totalOutcome = 0;
-      for (int i = 0; i < incomeList.size(); i++) {
-        Finance income = (Finance) incomeList.get(i);
-        if (date.equals(income.getDate())) {
-          totalIncome += income.getAmount();
-        }
-      }
-      for (int i = 0; i < outcomeList.size(); i++) {
-        Finance outcome = (Finance) outcomeList.get(i);
-        if (date.equals(outcome.getDate())) {
-          totalOutcome += outcome.getAmount();
-        }
-      }
-      System.out.printf("%s, %d, %d ,%d\n", date.toString(), totalIncome, totalOutcome,
-          totalIncome - totalOutcome);
-    }
-  }
 
   //3. 품목별 수입 지출 목록
-  private void viewCategory(String subTitle) {
-    int incomeTotal = allSum(true);
-    int outcomeTotal = allSum(false);
-
-    Object[] uniqueIncome = uniqueList(incomeList, subTitle);
-    System.out.println("[수입]----------------------");
-    printFormatted("수입총합", PROGRESS_INCOME, Math.abs(incomeTotal), incomeTotal);
-    for (Object obj : uniqueIncome) {
-      String car = (String) obj;
-      int total = 0;
-      for (Object value : incomeList.toArray()) {
-        Finance income = (Finance) value;
-        if (car.equals(income.getCategory())) {
-          total += income.getAmount();
-        }
-      }
-      printFormatted(obj.toString(), PROGRESS_INCOME, Math.abs(total), incomeTotal);
-    }
-
-    Object[] uniqueOutcome = uniqueList(outcomeList, subTitle);
-    System.out.println("[지출]----------------------");
-    printFormatted("지출총합", PROGRESS_OUTCOME, Math.abs(outcomeTotal), outcomeTotal);
-    for (Object obj : uniqueOutcome) {
-      String car = (String) obj;
-      int total = 0;
-      for (Object value : outcomeList.toArray()) {
-        Finance income = (Finance) value;
-        if (car.equals(income.getCategory())) {
-          total += income.getAmount();
-        }
-      }
-      printFormatted(obj.toString(), PROGRESS_OUTCOME, Math.abs(total), outcomeTotal);
-    }
-  }
 
   private ArrayList union() {
     int incomeSize = incomeList.size();

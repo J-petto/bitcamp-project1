@@ -1,15 +1,15 @@
 package bitcamp.project1.vo;
 
-public class BankAccount {
-  private String bankName;
+public class Wallet {
+  private String assetType;
   private int depositAmount;
 
-  public String getBankName() {
-    return bankName;
+  public String getAssetType() {
+    return assetType;
   }
 
-  public void setBankName(String bankName) {
-    this.bankName = bankName;
+  public void setAssetType(String assetType) {
+    this.assetType = assetType;
   }
 
   public int getDepositAmount() {

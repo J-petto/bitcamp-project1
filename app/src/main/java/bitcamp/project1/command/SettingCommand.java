@@ -1,7 +1,7 @@
 package bitcamp.project1.command;
 
 import bitcamp.project1.Prompt.Prompt;
-import bitcamp.project1.vo.BankAccount;
+import bitcamp.project1.vo.Wallet;
 
 public class SettingCommand {
   final int CASH = 0;
@@ -33,26 +33,26 @@ public class SettingCommand {
 
   public void createSetting() {
     if (settingDone) {
-      BankAccount cash = new BankAccount();
+      Wallet cash = new Wallet();
       System.out.println("현금");
-      cash.setBankName("현금");
+      cash.setAssetType("현금");
       cash.setDepositAmount(Prompt.inputInt("잔액?"));
       userSettingList[CASH] = cash;
 
-      BankAccount bankAccount = new BankAccount();
+      Wallet bankAccount = new Wallet();
       System.out.println("통장");
       String reply = Prompt.input("계좌를 추가 하시겠습니까(Y/N)?");
       if (reply.equalsIgnoreCase("y")) {
-        bankAccount.setBankName(Prompt.input("은행명?"));
+        bankAccount.setAssetType(Prompt.input("은행명?"));
         bankAccount.setDepositAmount(Prompt.inputInt("잔액?"));
         userSettingList[BANK] = bankAccount;
       }
 
-      BankAccount creditCard = new BankAccount();
+      Wallet creditCard = new Wallet();
       System.out.println("신용카드");
       reply = Prompt.input("신용카드를 추가 하시겠습니까(Y/N)?");
       if (reply.equalsIgnoreCase("y")) {
-        creditCard.setBankName(Prompt.input("카드사명?"));
+        creditCard.setAssetType(Prompt.input("카드사명?"));
         creditCard.setDepositAmount(Prompt.inputInt("사용액?"));
         userSettingList[CREDIT] = creditCard;
       }
@@ -63,21 +63,21 @@ public class SettingCommand {
   }
 
   public void listISetting() {
-    System.out.println("구분 상세내용 금액");
+    System.out.println("구분 금액");
     for (Object obj : userSettingList) {
       if (obj == null) {
         continue;
       }
-      BankAccount count = (BankAccount) obj;
-      System.out.printf("%s %d\n", count.getBankName(), count.getDepositAmount());
+      Wallet count = (Wallet) obj;
+      System.out.printf("%s %d\n", count.getAssetType(), count.getDepositAmount());
     }
   }
 
   public void updateSetting() {
     String command;
-    BankAccount cash = (BankAccount) userSettingList[CASH];
-    BankAccount bankAccount = (BankAccount) userSettingList[BANK];
-    BankAccount creditCard = (BankAccount) userSettingList[CREDIT];
+    Wallet cash = (Wallet) userSettingList[CASH];
+    Wallet bankAccount = (Wallet) userSettingList[BANK];
+    Wallet creditCard = (Wallet) userSettingList[CREDIT];
     while (true) {
       command = Prompt.input("보유 현금을 수정하시겠습니까?(Y/N)");
       if (command.equalsIgnoreCase("Y")) {
@@ -94,12 +94,12 @@ public class SettingCommand {
     while (true) {
       command = Prompt.input("보유 통장을 수정하시겠습니까?(Y/N)");
       if (command.equalsIgnoreCase("Y")) {
-        bankAccount.setBankName(Prompt.input("수정 은행명?"));
+        bankAccount.setAssetType(Prompt.input("수정 은행명?"));
         bankAccount.setDepositAmount(Prompt.inputInt("수정 통장 금액?"));
         System.out.println("수정했습니다.");
         break;
       } else if (command.equalsIgnoreCase("N")) {
-        System.out.printf("기존 통장을 유지했습니다(%s. %d)\n", bankAccount.getBankName(),
+        System.out.printf("기존 통장을 유지했습니다(%s. %d)\n", bankAccount.getAssetType(),
             bankAccount.getDepositAmount());
         break;
       } else {
@@ -109,12 +109,12 @@ public class SettingCommand {
     while (true) {
       command = Prompt.input("보유 카드를 수정하시겠습니까?(Y/N)");
       if (command.equalsIgnoreCase("Y")) {
-        creditCard.setBankName(Prompt.input("수정 카드사명?"));
+        creditCard.setAssetType(Prompt.input("수정 카드사명?"));
         creditCard.setDepositAmount(Prompt.inputInt("수정 카드 금액?"));
         System.out.println("수정했습니다.");
         break;
       } else if (command.equalsIgnoreCase("N")) {
-        System.out.printf("기존 통장을 유지했습니다(%s. %d)\n", bankAccount.getBankName(),
+        System.out.printf("기존 통장을 유지했습니다(%s. %d)\n", bankAccount.getAssetType(),
             bankAccount.getDepositAmount());
         break;
       } else {
