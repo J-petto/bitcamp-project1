@@ -102,7 +102,7 @@ public class IncomeCommand {
     System.out.printf("수입날짜 : %s\n", searchedIncome.getDate());
     System.out.printf("수입금액 : %d\n", searchedIncome.getAmount());
     Wallet account = (Wallet) wallet[searchedIncome.getAccount()];
-    System.out.printf("수입출처 : %s\n", searchedIncome.getAccount());
+    System.out.printf("수입출처 : %s\n", account.getAssetType());
     System.out.printf("카테고리 : %s\n", searchedIncome.getCategory());
   }
 
@@ -116,7 +116,7 @@ public class IncomeCommand {
     }
     updateIncome.setDate(Prompt.inputDate("수입일(%s)?", updateIncome.getDate()));
     updateIncome.setAmount(Prompt.inputInt("수입금액(%s)", updateIncome.getAmount()));
-    updateIncome.setAccount(Prompt.inputInt("수입출처(%s)?", updateIncome.getAccount()));
+    setWallet(updateIncome);
     updateIncome.setCategory(Prompt.input("카테고리(%s)", updateIncome.getCategory()));
     System.out.println("변경 완료했습니다.");
   }
