@@ -63,7 +63,7 @@ public class InformCommand {
         String line = "------------------------------------------------";
         Object[] uniqueDate = uniqueList(union(), subTitle);
         System.out.println(endLine);
-        System.out.printf("%-8s %9s %10s %10s\n","날짜", "수입", "지출", "총계");
+        System.out.printf("%-8s %9s %10s %10s\n", "날짜", "수입", "지출", "총계");
         System.out.println(line);
         for (Object obj : uniqueDate) {
             LocalDate date = (LocalDate) obj;
@@ -131,7 +131,7 @@ public class InformCommand {
         String endLine = "================================================================";
         String line = "----------------------------------------------------------------";
         System.out.println(endLine);
-        System.out.printf("%-10s %10s %10s %10s %10s\n","구분", "잔고", "수입", "지출", "총계");
+        System.out.printf("%-10s %10s %10s %10s %10s\n", "구분", "잔고", "수입", "지출", "총계");
         System.out.println(line);
         for (Object obj : assetList) {
             Wallet wallet = (Wallet) obj;
@@ -152,12 +152,12 @@ public class InformCommand {
                 }
             }
             System.out.print(wallet.getAssetType());
-            for(int i = 0; i < 6 - wallet.getAssetType().length(); i++){
+            for (int i = 0; i < 6 - wallet.getAssetType().length(); i++) {
                 System.out.print("  ");
             }
             int allTotal = wallet.getDepositAmount() + totalIncome - totalOutcome;
-            System.out.printf(" | %8s원 | %8s원 | %8s원 | %8s원 \n", String.format("%,d",wallet.getDepositAmount()),
-                    String.format("%,d",totalIncome), String.format("%,d",totalOutcome), String.format("%,d", allTotal));
+            System.out.printf(" | %8s원 | %8s원 | %8s원 | %8s원 \n", String.format("%,d", wallet.getDepositAmount()),
+                    String.format("%,d", totalIncome), String.format("%,d", totalOutcome), String.format("%,d", allTotal));
         }
         System.out.println(endLine);
     }
