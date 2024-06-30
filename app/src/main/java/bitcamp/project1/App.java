@@ -12,7 +12,7 @@ public class App {
       {"총 지출 수입", "일자별 수입 지출", "항목별 수입 지출", "자산별 수입 지출"}, {"등록", "목록", "변경", "삭제"}};
 
   SettingCommand settingCommand = new SettingCommand();
-  IncomeCommand incomeCommand = new IncomeCommand();
+  IncomeCommand incomeCommand = new IncomeCommand(settingCommand.getUserSettingList());
   OutcomeCommand outcomeCommand = new OutcomeCommand(settingCommand.getUserSettingList());
   InformCommand informCommand =
       new InformCommand(incomeCommand.getIncomeList(), outcomeCommand.getOutcomeList(),
