@@ -17,6 +17,10 @@ public class InformCommand {
     ArrayList outcomeList;
     Object[] assetList;
 
+    String ansiBlue = "\033[94m";
+    String ansiRed = "\033[91m";
+    String ansiEnd = "\033[0m";
+
     String line = "------------------------------";
     String endLine = "==============================";
 
@@ -82,8 +86,9 @@ public class InformCommand {
                     totalOutcome += outcome.getAmount();
                 }
             }
-            System.out.printf("%s: %8s원 | %8s원 | %8s원\n", date.toString(), String.format("%,d", totalIncome), String.format("%,d", totalOutcome),
-                    String.format("%,d", totalIncome - totalOutcome));
+            int total = totalIncome - totalOutcome;
+            System.out.printf("%s: %8s원 | %8s원 | ", date.toString(), String.format("%,d", totalIncome), String.format("%,d", totalOutcome));
+            System.out.printf("%s%8s원%s\n", total < 0 ? ansiRed : ansiBlue, String.format("%,d", total), ansiEnd);
         }
         System.out.println(endLine);
     }
@@ -133,6 +138,7 @@ public class InformCommand {
         System.out.println(endLine);
         System.out.printf("%-10s %10s %10s %10s %10s\n", "구분", "잔고", "수입", "지출", "총계");
         System.out.println(line);
+        int count = 0;
         for (Object obj : assetList) {
             Wallet wallet = (Wallet) obj;
             if (wallet.getAssetType() == null) {
@@ -141,13 +147,13 @@ public class InformCommand {
             int totalIncome = 0, totalOutcome = 0;
             for (Object in : incomeList.toArray()) {
                 Finance income = (Finance) in;
-                if (wallet.getAssetType().equals(income.getKindOfCome())) {
+                if (income.getAccount() == count) {
                     totalIncome += income.getAmount();
                 }
             }
             for (Object out : outcomeList.toArray()) {
                 Finance outcome = (Finance) out;
-                if (wallet.getAssetType().equals(outcome.getKindOfCome())) {
+                if (outcome.getAccount() == count) {
                     totalOutcome += outcome.getAmount();
                 }
             }
@@ -156,16 +162,15 @@ public class InformCommand {
                 System.out.print("  ");
             }
             int allTotal = wallet.getDepositAmount() + totalIncome - totalOutcome;
-            System.out.printf(" | %8s원 | %8s원 | %8s원 | %8s원 \n", String.format("%,d", wallet.getDepositAmount()),
-                    String.format("%,d", totalIncome), String.format("%,d", totalOutcome), String.format("%,d", allTotal));
+            System.out.printf(" | %8s원 | %8s원 | %8s원 | ", String.format("%,d", wallet.getDepositAmount()),
+                    String.format("%,d", totalIncome), String.format("%,d", totalOutcome));
+            System.out.printf("%s%8s원%s\n", allTotal < 0 ? ansiRed : ansiBlue, String.format("%,d", allTotal), ansiEnd);
+            count++;
         }
         System.out.println(endLine);
     }
 
     public void printGraph(int label, int value, int total) {
-        String ansiBlue = "\033[94m";
-        String ansiRed = "\033[91m";
-        String ansiEnd = "\033[0m";
         String dotCode = "\u25AE";
 
         int barLength = 30;
@@ -192,7 +197,7 @@ public class InformCommand {
         System.out.println();
     }
 
-    public void printFormatted(String text, int label, int value, int total) {
+    private void printFormatted(String text, int label, int value, int total) {
         final int VALUE_MAX_LENGTH = label == PROGRESS_OUTCOME || total < 0 ? 9 : 10;
         String formattedValue = String.format("%,d", value);
         System.out.printf("%s", text);
