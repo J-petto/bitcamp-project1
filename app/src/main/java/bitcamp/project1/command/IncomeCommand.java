@@ -11,9 +11,6 @@ public class IncomeCommand {
   private final int PROCESS_UPDATE = 2;
   private final int PROCESS_DELETE = 3;
 
-  private final int ACCOUNT = 0;
-  private final int CASH = 1;
-
   ArrayList incomeList = new ArrayList();
   SettingCommand settingCommand = new SettingCommand();
   Object[] wallet;
@@ -21,37 +18,6 @@ public class IncomeCommand {
   public IncomeCommand(Object[] list){
     wallet = list;
   }
-
-  //  public void autoIncomeData() {
-  //    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-  //
-  //    Finance income = new Finance();
-  //    income.setKindOfCome("수입");
-  //    income.setDate(LocalDate.parse("2024-06-27"));
-  //    income.setCategory("월급");
-  //    income.setAccount("현금");
-  //    income.setAmount(500);
-  //    income.setNo(Finance.getSeqNo());
-  //    incomeList.add(income);
-  //
-  //    Finance income1 = new Finance();
-  //    income1.setKindOfCome("수입");
-  //    income1.setDate(LocalDate.parse("2024-06-28"));
-  //    income1.setCategory("용돈");
-  //    income1.setAccount("현금");
-  //    income1.setAmount(1500);
-  //    income1.setNo(Finance.getSeqNo());
-  //    incomeList.add(income1);
-  //
-  //    Finance income2 = new Finance();
-  //    income2.setKindOfCome("수입");
-  //    income2.setDate(LocalDate.parse("2024-06-28"));
-  //    income2.setCategory("월급");
-  //    income2.setAccount("현금");
-  //    income2.setAmount(300);
-  //    income2.setNo(Finance.getSeqNo());
-  //    incomeList.add(income2);
-  //  }
 
   public void executeIncomeCommand(String subTitle) {
     System.out.printf("[%s]/n", subTitle);
@@ -153,16 +119,16 @@ public class IncomeCommand {
   private void setWallet(Finance outcome) {
     for (int i = 0; i < wallet.length; i++) {
       Wallet value = (Wallet) wallet[i];
-      if (value == null) {
+      if (value == null || i == wallet.length - 1) {
         continue;
       }
       System.out.printf("%d. %s\n", i + 1, value.getAssetType());
     }
 
     while (true) {
-      int no = Prompt.inputInt("결제방법?");
-      if ((no < 0 || no >= wallet.length) || wallet[no - 1] == null) {
-        System.out.println("유효한 결제방법이 아닙니다.");
+      int no = Prompt.inputInt("수입방법?");
+      if ((no < 0 || no >= wallet.length) || wallet[no - 1] == null || no == 3) {
+        System.out.println("유효한 수입방법이 아닙니다.");
       } else {
         outcome.setAccount(no - 1);
         break;
@@ -173,4 +139,5 @@ public class IncomeCommand {
   public ArrayList getIncomeList() {
     return incomeList;
   }
+
 }

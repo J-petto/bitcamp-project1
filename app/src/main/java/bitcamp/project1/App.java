@@ -111,7 +111,7 @@ public class App {
               incomeCommand.executeIncomeCommand(subMenuTitle);
               break;
             case "지출입력":
-              outcomeCommand.excuteOutcomeCommand(subMenuTitle);
+              outcomeCommand.executeOutcomeCommand(subMenuTitle);
               break;
             case "수입지출목록":
               informCommand.executeInformCommand(subMenuTitle);

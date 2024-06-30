@@ -11,11 +11,7 @@ public class OutcomeCommand {
   private final int PROCESS_UPDATE = 2;
   private final int PROCESS_DELETE = 3;
 
-  private final int ACCOUNT = 0;
-  private final int CASH = 1;
-
   ArrayList outcomeList = new ArrayList();
-  SettingCommand settingCommand = new SettingCommand();
   Object[] wallet;
 
   public OutcomeCommand(Object[] list) {
@@ -51,7 +47,7 @@ public class OutcomeCommand {
   //    outcomeList.add(outcome2);
   //  }
 
-  public void excuteOutcomeCommand(String command) {
+  public void executeOutcomeCommand(String command) {
     System.out.printf("[%s]\n", command);
     switch (command) {
       case "등록":

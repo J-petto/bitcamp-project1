@@ -13,9 +13,9 @@ public class InformCommand {
   private final int PROGRESS_OUTCOME = 1;
   private final int PROGRESS_TOTAL = 2;
 
-  ArrayList incomeList = new ArrayList();
-  ArrayList outcomeList = new ArrayList();
-  Object[] assetList = new ArrayList[3];
+  ArrayList incomeList;
+  ArrayList outcomeList;
+  Object[] assetList;
 
   public InformCommand(ArrayList incomeList, ArrayList outcomeList, Object[] assetList) {
     this.incomeList = incomeList;
