@@ -62,18 +62,22 @@ public class InformCommand {
     for (Object obj : uniqueDate) {
       LocalDate date = (LocalDate) obj;
       int totalIncome = 0, totalOutcome = 0;
+
       for (Object in : incomeList.toArray()) {
         Finance income = (Finance) in;
         if (date.equals(income.getDate())) {
           totalIncome += income.getAmount();
         }
       }
+
       for (Object out : outcomeList.toArray()) {
         Finance outcome = (Finance) out;
         if (date.equals(outcome.getDate())) {
           totalOutcome += outcome.getAmount();
         }
       }
+
+
       System.out.printf("%s, %d, %d ,%d\n", date.toString(), totalIncome, totalOutcome,
           totalIncome - totalOutcome);
     }
@@ -211,8 +215,8 @@ public class InformCommand {
     for (int i = 0; i < incomeSize; i++) {
       result.add(incomeList.get(i));
     }
-    for (int i = incomeSize; i < outcomeSize; i++) {
-      result.add(incomeList.get(i));
+    for (int i = 0; i < outcomeSize; i++) {
+      result.add(outcomeList.get(i));
     }
     return result;
   }
@@ -221,8 +225,6 @@ public class InformCommand {
     HashSet<Object> set = new HashSet<>();
     for (Object obj : list.toArray()) {
       Finance value = (Finance) obj;
-      if (value == null)
-        return null;
       if (subTitle.equals("일자별 수입 지출")) {
         set.add(value.getDate());
       } else if (subTitle.equals("항목별 수입 지출")) {
