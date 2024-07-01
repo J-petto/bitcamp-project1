@@ -5,10 +5,7 @@ import java.util.Objects;
 
 public class Finance {
   private static int seqNo;
-  private static int incomeNo;
-  private static int outcomeNo;
   private String kindOfCome;
-
   private int no;
   private LocalDate date;
   private int amount;

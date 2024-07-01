@@ -16,6 +16,7 @@ public class Prompt {
   public static int inputInt(String format, Object... args) {
     return Integer.parseInt(input(format, args));
   }
+
   public static LocalDate inputDate(String format, Object... args) {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     while (true) {
