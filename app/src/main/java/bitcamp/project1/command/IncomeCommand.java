@@ -41,7 +41,7 @@ public class IncomeCommand {
     }
 
     public void executeIncomeCommand(String subTitle) {
-        System.out.printf("[%s]/n", subTitle);
+        System.out.printf("[%s]\n", subTitle);
         switch (subTitle) {
             case "등록":
                 createIncome();
