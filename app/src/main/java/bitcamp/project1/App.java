@@ -58,7 +58,7 @@ public class App {
   }
 
   void execute() {
-    settingCommand.autoSettingCommand();
+//    settingCommand.autoSettingCommand();
     incomeCommand.autoIncomeData();
     outcomeCommand.autoOutcomeData();
     String command;
